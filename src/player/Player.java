@@ -6,17 +6,30 @@ import deck.Card;
 
 public class Player {
 	
-	private static String name;
-	private static int id;
-	private static double chips;
-	private static ArrayList<Card> hand;
+	private String name;
+	private	int id;
+	private double chips;
+	private ArrayList<Card> hand = new ArrayList<Card>();;
 	
-	public Player(String name){
+	public Player(String name,int id){
 		this.name = name;
+		this.id = id;
 	}
 	
 	public String getName(){
 		return this.name;
+	}
+	
+	public int getId(){
+		return this.id;
+	}
+	
+	public void receiveCard(Card card){
+		hand.add(card);
+	}
+	
+	public ArrayList<Card> getHand(){
+		return this.hand;
 	}
 
 }

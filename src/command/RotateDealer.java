@@ -16,7 +16,6 @@ public class RotateDealer implements Command<Void> {
 	public Void execute() {
 		
 		players.add(players.remove(0));
-
 		
 		return null;
 	}
