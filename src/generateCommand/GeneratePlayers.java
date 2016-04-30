@@ -2,7 +2,7 @@ package generateCommand;
 
 import java.util.ArrayList;
 
-import Player.PlayersList;
+import player.PlayersList;
 
 public class GeneratePlayers implements GenerateCommand{
 

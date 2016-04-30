@@ -1,6 +1,6 @@
 package generateCommand;
 
-import Deck.Deck;
+import deck.Deck;
 
 public class GenerateDeck implements GenerateCommand{
 	private Deck deck;

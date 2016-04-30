@@ -1,6 +1,6 @@
 package gameCommand;
 
-import Deck.Deck;
+import deck.Deck;
 
 public class ShuffleDeck implements GameCommand {
 private Deck deck;

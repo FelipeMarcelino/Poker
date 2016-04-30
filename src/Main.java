@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
-import Deck.Deck;
-import Player.PlayersList;
+import deck.Deck;
 import gameCommand.ShuffleDeck;
 import generateCommand.GenerateDeck;
 import generateCommand.GeneratePlayers;
+import player.PlayersList;
 
 public class Main {
 
