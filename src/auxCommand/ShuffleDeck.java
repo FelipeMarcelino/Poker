@@ -1,8 +1,8 @@
-package gameCommand;
+package auxCommand;
 
 import deck.Deck;
 
-public class ShuffleDeck implements GameCommand {
+public class ShuffleDeck implements AuxCommand {
 private Deck deck;
 	
 	public ShuffleDeck(Deck deck){
@@ -11,7 +11,10 @@ private Deck deck;
 
 	@Override
 	public void execute() {
-		deck.shuffleDeck();
-		
+		this.deck.shuffleDeck();
 	}
+
+	
+
+	
 }

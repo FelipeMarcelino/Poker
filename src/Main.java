@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 
+import auxCommand.DrawCardFromDeck;
+import auxCommand.RotatePlayersList;
+import auxCommand.ShuffleDeck;
 import deck.Deck;
-import gameCommand.ShuffleDeck;
 import generateCommand.GenerateDeck;
 import generateCommand.GeneratePlayers;
 import player.PlayersList;
@@ -12,23 +14,25 @@ public class Main {
 		
 		Deck deck = new Deck();
 		PlayersList playersList = new PlayersList();
+		ArrayList<String> playersNames = new ArrayList<String>();			
+		
 		GenerateDeck generateDeck = new GenerateDeck(deck);
 		ShuffleDeck shuffleDeck = new ShuffleDeck(deck);
-		ArrayList<String> playersNames = new ArrayList<String>();
+		GeneratePlayers generatePlayers = new GeneratePlayers(playersList,playersNames);
+		RotatePlayersList rotatePlayersList = new RotatePlayersList(playersList);
+		DrawCardFromDeck drawCardFromDeck = new DrawCardFromDeck(playersList,deck);
+		
 		playersNames.add("A");
 		playersNames.add("B");
 		playersNames.add("C");
 		playersNames.add("D");
 		
-		GeneratePlayers generatePlayers = new GeneratePlayers(playersList,playersNames);
-		
-		
 		generateDeck.execute();
 		generatePlayers.execute();
 		shuffleDeck.execute();
+		rotatePlayersList.execute();
+		drawCardFromDeck.execute();
 		
-		
-		System.out.println("Oie");
 		
 	}
 

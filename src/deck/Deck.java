@@ -22,8 +22,10 @@ public class Deck {
 		this.seed = System.nanoTime();
 		Collections.shuffle(this.deck, new Random(this.seed));
 		
-		
-		
+	}
+	
+	public Card drawCardFromDeck(int indexCard){
+		return this.deck.get(indexCard);
 	}
 	
 }
