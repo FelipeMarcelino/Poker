@@ -9,7 +9,11 @@ public class Player {
 	private String name;
 	private int id;
 	private double chips;
-	ArrayList<Card> hand = new ArrayList<Card>();
+	private boolean isFold = false;
+	private int powerHand;
+	private ArrayList<Card> hand = new ArrayList<Card>();
+	private ArrayList<Card> bestFive = new ArrayList<Card>();
+	
 	
 	public Player(String name,int id){
 		this.name = name;
@@ -24,9 +28,38 @@ public class Player {
 		return this.id;
 	}
 	
+	public int getPowerHand() {
+		return powerHand;
+	}
+
+	public void setPowerHand(int powerHand) {
+		this.powerHand = powerHand;
+	}
+
 	public void receiveCard(Card card){
 		this.hand.add(card);
 	}
+	
+	public ArrayList<Card> getHand(){
+		return this.hand;
+	}
+	
+	public ArrayList<Card> setBestFive(){
+		return this.bestFive;
+	}
+	
+	public ArrayList<Card> getBestFive(){
+		return this.bestFive;
+	}
+	
+	public void folding(){
+		this.isFold = true;
+	}
+	
+	public boolean isFold(){
+		return this.isFold;
+	}
+	
 	
 
 }
