@@ -10,12 +10,13 @@ public class TwoPair implements GetPokerHand {
 
 	private static TwoPair twoPair = new TwoPair();
 	private int totalSameRank;
+	private int aux;
+	private int indexPairA[] = new int[2];
+	private int indexPairB[] = new int[2];
 	private boolean[] cardSameRank = new boolean[7];
 	private boolean isPairA;
 	private boolean isPairB;
-	private int indexPairA[] = new int[2];
-	private int indexPairB[] = new int[2];
-	private int aux;
+	private Card auxCard;
 	
 	private TwoPair(){
 	}
@@ -34,6 +35,18 @@ public class TwoPair implements GetPokerHand {
 			bestFive.add(hand.get(this.indexPairA[i]));
 		}
 
+		if(bestFive.get(2).getRank() == 0){
+			this.auxCard = bestFive.get(0);
+			bestFive.set(0, bestFive.get(2));
+			bestFive.set(2, auxCard);
+			
+			this.auxCard = bestFive.get(1);
+			bestFive.set(1, bestFive.get(3));
+			bestFive.set(3, auxCard);
+			
+			
+		}
+		
 		for (int i = 0; i < hand.size(); i++) {
 			if (i != this.indexPairB[0] && i != this.indexPairB[1] && i != this.indexPairA[0]
 					&& i != this.indexPairA[1]) {

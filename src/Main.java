@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+import auxCommand.CompareHands;
 import auxCommand.DrawCardFromDeck;
 import auxCommand.RotatePlayersList;
 import auxCommand.SetPokerHand;
@@ -27,6 +28,7 @@ public class Main {
 		RotatePlayersList rotatePlayersList = new RotatePlayersList(playersList);
 		DrawCardFromDeck drawCardFromDeck = new DrawCardFromDeck(playersList,deck,board);
 		SetPokerHand setPokerHand = new SetPokerHand(playersList,pokerHand,board);
+		CompareHands compareHands = new CompareHands(playersList,pokerHand);
 		
 		playersNames.add("A");
 		playersNames.add("B");
@@ -36,32 +38,20 @@ public class Main {
 		generateDeck.execute();
 		generatePlayers.execute();
 		shuffleDeck.execute();
-		rotatePlayersList.execute();
+		//rotatePlayersList.execute();
 		drawCardFromDeck.execute();
-		
-		
-		System.out.println("Oie");
-		
-		playersList.selectPlayer(0).getHand().clear();
-		
-		playersList.selectPlayer(0).receiveCard(new Card(0,0));
-		playersList.selectPlayer(0).receiveCard(new Card(0,12));
-		
-		board.clear();
-		
-		board.add(new Card(1,0));
-		board.add(new Card(2,0));
-		board.add(new Card(3,0));
-		board.add(new Card(0,3));
-		board.add(new Card(0,4));
-		
 		setPokerHand.execute();
+		
+		
+	
+		
+		
 		
 		for(int p = 0; p < 5; p++){
 			System.out.println(board.get(p).getRank() + " " + board.get(p).getSuit());
 		}
 		
-		for(int i = 0; i < 1; i++){
+		for(int i = 0; i < 4; i++){
 			System.out.println(i);
 			System.out.println(playersList.selectPlayer(i).getPowerHand());
 			for(int k = 0; k < 2; k++){
@@ -72,8 +62,12 @@ public class Main {
 				System.out.println(playersList.selectPlayer(i).getBestFive().get(k).getRank() + " " + playersList.selectPlayer(i).getBestFive().get(k).getSuit());
 			}
 			
+			System.out.println("\n");
+			
 		}
 		
+		
+		compareHands.execute();		
 		
 	}
 
