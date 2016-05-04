@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import auxCommand.CompareHands;
 import auxCommand.DrawCardFromDeck;
+import auxCommand.GetWhoWins;
 import auxCommand.PlayersInGame;
 import auxCommand.RotatePlayersList;
 import auxCommand.SetPokerHand;
@@ -42,11 +43,10 @@ public abstract class Poker {
 	protected static AllIn allIn = new AllIn(playersList,infoRound);
 	protected static  Bet bet = new Bet(playersList,infoRound);
 	protected static  Call call = new Call(playersList,infoRound);
-	protected static  Check check = new Check(playersList);
-	protected static  Fold fold = new Fold(playersList);
+	protected static  Check check = new Check(playersList,infoRound);
+	protected static  Fold fold = new Fold(playersList,infoRound);
 	protected static  PlayersInGame playersInGame = new PlayersInGame(playersList,infoRound);
+	protected static GetWhoWins getWhoWins = new GetWhoWins(playersList,infoRound);
 	
 	
-
-
 }

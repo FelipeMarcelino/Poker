@@ -1,19 +1,21 @@
 package gameCommand;
 
+import game.InfoRound;
 import player.PlayersList;
 
 public class Check implements GameCommand {
 
 	private PlayersList playersList;
-	private int whoCommand;
+	private InfoRound infoRound;
 	
-	public Check(PlayersList playersList){
+	public Check(PlayersList playersList, InfoRound infoRound){
 		this.playersList = playersList;
+		this.infoRound = infoRound;
 	}
 
 	@Override
 	public void execute() {
-		this.playersList.selectPlayer(this.whoCommand).check();
+		//this.playersList.selectPlayer(this.whoCommand).check();
 	}
 
 }

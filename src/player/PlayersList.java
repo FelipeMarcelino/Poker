@@ -58,9 +58,9 @@ public class PlayersList {
 		
 	}
 	
-	public void setPlayersInGame(int initBet){
+	public void eliminatePlayers(){
 		for(int i = 0; i < this.players.size(); i++){
-			if(this.players.get(i).getChips() < initBet) this.players.get(i).outGame();
+			if(this.players.get(i).getChips() == 0) this.players.get(i).outGame();
 		}
 	}
 	

@@ -14,11 +14,11 @@ public class Card {
 	}
 	
 	public int getSuit(){
-		return this.suits[indexSuit];
+		return suits[indexSuit];
 	}
 	
 	public int getRank(){
-		return this.ranks[indexRank];
+		return ranks[indexRank];
 	}
 	
 	

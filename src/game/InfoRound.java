@@ -5,7 +5,17 @@ public class InfoRound {
 	private int minimumBet;
 	private int whoPlayerTurn;
 	private int totalPlayers;
+	private int totalPlayersInGame;
+	private int whoWins;
 	
+	public int getWhoWins() {
+		return whoWins;
+	}
+
+	public void setWhoWins(int whoWins) {
+		this.whoWins = whoWins;
+	}
+
 	public void setTotalPlayers(int totalPlayers){
 		this.totalPlayers = totalPlayers;
 	}
@@ -26,5 +36,15 @@ public class InfoRound {
 		if(this.whoPlayerTurn == this.totalPlayers) this.whoPlayerTurn = 0;
 		return this.whoPlayerTurn;
 	}
+	
+	public void setPlayersInGame(int totalPlayersInGame){
+		this.totalPlayersInGame = totalPlayersInGame;
+	}
+	
+	public int getPlayersInGame(){
+		return this.totalPlayersInGame;
+	}
+	
+	
 	
 }
