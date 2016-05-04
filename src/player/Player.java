@@ -10,9 +10,10 @@ public class Player {
 	private String name;
 	private int id;
 	private int chips;
-	private boolean isFold = false;
-	private boolean isCheck = false;
-	private boolean allIn = false;
+	private boolean inGame;
+	private boolean isFold ;
+	private boolean isCheck;
+	private boolean allIn ;
 	private int powerHand;
 	private ArrayList<Card> hand = new ArrayList<Card>();
 	private ArrayList<Card> bestFive = new ArrayList<Card>();
@@ -21,9 +22,14 @@ public class Player {
 	private int totalBet;
 	
 	
-	public Player(String name,int id){
+	public Player(String name,int id,int chips){
 		this.name = name;
 		this.id = id;
+		this.chips = chips;
+		this.isFold = false;
+		this.isCheck = false;
+		this.allIn = false;
+		this.inGame = true;
 	}
 	
 	public String getName(){
@@ -32,6 +38,18 @@ public class Player {
 	
 	public int getId(){
 		return this.id;
+	}
+	
+	public boolean inGame(){
+		return this.inGame;
+	}
+	
+	public void outGame(){
+		this.inGame = false;
+	}
+	
+	public int getChips(){
+		return this.chips;
 	}
 	
 	public int getPowerHand() {

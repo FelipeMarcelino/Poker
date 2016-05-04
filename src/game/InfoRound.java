@@ -1,6 +1,6 @@
 package game;
 
-public class StateRound {
+public class InfoRound {
 
 	private int minimumBet;
 	private int whoPlayerTurn;

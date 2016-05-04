@@ -7,9 +7,8 @@ public class Check implements GameCommand {
 	private PlayersList playersList;
 	private int whoCommand;
 	
-	public Check(PlayersList playersList,int whoCommand){
+	public Check(PlayersList playersList){
 		this.playersList = playersList;
-		this.whoCommand = whoCommand;
 	}
 
 	@Override

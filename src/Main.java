@@ -1,44 +1,21 @@
-import java.util.ArrayList;
-
-import auxCommand.CompareHands;
-import auxCommand.DrawCardFromDeck;
-import auxCommand.RotatePlayersList;
-import auxCommand.SetPokerHand;
-import auxCommand.ShuffleDeck;
-import deck.Card;
-import deck.Deck;
-import generateCommand.GenerateDeck;
-import generateCommand.GeneratePlayers;
-import player.PlayersList;
-import pokerHand.PokerHand;
+import game.Poker;
+import game.PokerGenerate;
+import pokerCommand.PokerGenerateExec;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		Deck deck = new Deck();
-		PlayersList playersList = new PlayersList();
-		PokerHand pokerHand = new PokerHand();
-		ArrayList<String> playersNames = new ArrayList<String>();		
-		ArrayList<Card> board = new ArrayList<Card>();
+		PokerGenerate pokerGenerate = new PokerGenerate();
+		PokerGenerateExec pokerGenerateExec = new PokerGenerateExec(pokerGenerate);
 		
-		GenerateDeck generateDeck = new GenerateDeck(deck);
-		ShuffleDeck shuffleDeck = new ShuffleDeck(deck);
-		GeneratePlayers generatePlayers = new GeneratePlayers(playersList,playersNames);
-		RotatePlayersList rotatePlayersList = new RotatePlayersList(playersList);
-		DrawCardFromDeck drawCardFromDeck = new DrawCardFromDeck(playersList,deck,board);
-		SetPokerHand setPokerHand = new SetPokerHand(playersList,pokerHand,board);
-		CompareHands compareHands = new CompareHands(playersList,pokerHand);
+		pokerGenerateExec.execute();
 		
-		playersNames.add("A");
-		playersNames.add("B");
-		playersNames.add("C");
-		playersNames.add("D");
-		
+		/*
 		generateDeck.execute();
 		generatePlayers.execute();
 		shuffleDeck.execute();
-		//rotatePlayersList.execute();
+		rotatePlayersList.execute();
 		drawCardFromDeck.execute();
 		setPokerHand.execute();
 		
@@ -68,7 +45,7 @@ public class Main {
 		
 		
 		compareHands.execute();		
-		
+		*/
 	}
 
 }

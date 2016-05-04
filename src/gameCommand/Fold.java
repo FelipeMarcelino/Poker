@@ -7,7 +7,7 @@ public class Fold implements GameCommand{
 	private PlayersList playersList;
 	private int whoCommand;
 	
-	public Fold(PlayersList playersList,int whoCommand){
+	public Fold(PlayersList playersList){
 		this.playersList = playersList;
 		this.whoCommand = whoCommand;
 	}
