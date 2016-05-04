@@ -1,28 +1,29 @@
 package player;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PlayersList {
 	
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private int totalPlayersInGame;
 	private int whoWins;
+	private int initChips;
 	
 	public void generatePlayers(ArrayList<String> playersNames,int initChips){
 		for(String name : playersNames){
 			this.players.add(new Player(name,players.size() + 1,initChips));
 		}
 
-		
+		this.initChips = initChips;
 	}
 	
 	public void rotatePlayersList(){
-		this.players.add(this.players.remove(0));
-		
-		for(int k = 0; k < this.players.size(); k++){
-			System.out.println(this.players.get(k).getName());
-		}
-		
+		Collections.rotate(players, 1);
+	}
+	
+	public int getInitChips(){
+		return this.initChips;
 	}
 	
 	public int getSizeList(){

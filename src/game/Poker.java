@@ -9,8 +9,10 @@ import auxCommand.EliminatePlayers;
 import auxCommand.GetWhoWins;
 import auxCommand.IsNextTurn;
 import auxCommand.PlayersInGame;
+import auxCommand.ReadyPlayer;
 import auxCommand.RotatePlayersList;
 import auxCommand.SetPokerHand;
+import auxCommand.ShowHandPlayer;
 import auxCommand.ShuffleDeck;
 import deck.Card;
 import deck.Deck;
@@ -26,6 +28,9 @@ import pokerHand.PokerHand;
 
 public class Poker {
 	
+	public static String[] suits = {"Hearts","Diamonds","Spade","Clubs"};
+	public static String[] ranks = {"Ace","2","3","4","5","6","7","8","9","10","Jack","Queens","King"};
+	
 	private  Deck deck;
 	private  PlayersList playersList;
 	private  PokerHand pokerHand;
@@ -34,7 +39,12 @@ public class Poker {
 	private  InfoRound infoRound;
 	private Scanner reader;
 	private int totalPlayers;
+	private int idPlayerBigBlind;
+	private int idPlayerDealer;
+	private int idCurrentPlayer;
 	private String name;
+	private String input;
+	
 	
 
 	//Comandos
@@ -55,6 +65,21 @@ public class Poker {
 	private GetWhoWins getWhoWins;
 	private EliminatePlayers eliminatePlayers;
 	private IsNextTurn isNextTurn;
+	private ReadyPlayer readyPlayer;
+	private ShowHandPlayer showHandPlayer;
+	
+	public static boolean isNumeric(String str)  
+	{  
+	  try  
+	  {  
+	    double d = Double.parseDouble(str);  
+	  }  
+	  catch(NumberFormatException nfe)  
+	  {  
+	    return false;  
+	  }  
+	  return true;  
+	}
 	
 	public Poker(){
 		deck = new Deck();
@@ -80,12 +105,22 @@ public class Poker {
 		getWhoWins = new GetWhoWins(playersList,infoRound);
 		eliminatePlayers = new EliminatePlayers(playersList,infoRound);
 		isNextTurn =  new IsNextTurn(playersList,infoRound);
+		readyPlayer = new ReadyPlayer(playersList);
+		showHandPlayer = new ShowHandPlayer(playersList);
 	}
 	
 	public void generate() {
 
 		System.out.print("Escolha o total de jogadores(2 to 10): ");
-		this.totalPlayers = reader.nextInt();
+		
+		while(true){
+			input = reader.next();
+			if(isNumeric(input) == true) break;
+			else{
+				System.out.println("Não é um número, coloque outro valor");
+			}
+		}
+		this.totalPlayers = Integer.parseInt(input);
 
 		while (this.totalPlayers < 2 || this.totalPlayers > 10) {
 			System.out.print("Numero de jogadores fora do limite, entre com um novo numero(2 to 10): ");
@@ -113,6 +148,36 @@ public class Poker {
 	
 	public void preFlop(){
 		
+		this.shuffleDeck.execute();
+		this.drawCardFromDeck.execute();
+		this.readyPlayer.execute();
+		
+		this.infoRound.initTotalBetRound();
+		this.infoRound.initTotalBetTurn();
+		
+		this.idPlayerDealer = this.playersList.selectPlayer(0).getId();
+		
+		//Small Blind (5%)
+		this.rotatePlayersList.execute();
+		System.out.println("Player: " + this.playersList.selectPlayer(0).getName());
+		System.out.println("Aposta automatica do small blind");
+		this.infoRound.setMinimumBet((int ) Math.round(this.playersList.getInitChips() * 0.05));
+		this.call.execute();
+		//Big Blind (10%)
+		this.rotatePlayersList.execute();
+		System.out.println("Player: " + this.playersList.selectPlayer(0).getName());
+		System.out.println("Aposta automatica do big blind");
+		this.infoRound.setMinimumBet((int ) Math.round(this.playersList.getInitChips() * 0.1));
+		this.call.execute();
+		this.idPlayerBigBlind = this.playersList.selectPlayer(0).getId();
+		
+		//Next player after Big Blind
+		
+		this.rotatePlayersList.execute();
+		
+		
+		
+	
 	}
 	
 	public void flop(){

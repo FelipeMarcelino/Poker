@@ -14,6 +14,6 @@ public class GetWhoWins implements AuxCommand {
 	
 	@Override
 	public void execute() {
-		this.infoRound.setWhoWins(this.playersList.getWhoWins());
+		//this.infoRound.setWhoWins(this.playersList.getWhoWins());
 	}
 }

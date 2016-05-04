@@ -15,7 +15,7 @@ public class PlayersInGame implements AuxCommand {
 	
 	@Override
 	public void execute() {
-		this.infoRound.setPlayersInGame(this.playersList.playersInGame());
+		//this.infoRound.setPlayersInGame(this.playersList.playersInGame());
 	}
 
 }

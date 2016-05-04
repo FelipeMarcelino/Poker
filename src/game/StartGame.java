@@ -14,7 +14,7 @@ public class StartGame {
 	PokerRiver pokerRiver,PokerWhoWinsGame pokerWhoWinsGame,PokerWhoWinsRound pokerWhoWinsRound){
 		
 		pokerGenerate.execute();
-		
+		pokerPreFlop.execute();
 		
 		
 	}

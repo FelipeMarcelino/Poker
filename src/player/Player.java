@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import deck.Card;
+import game.Poker;
 
 public class Player {
 	
@@ -104,6 +105,11 @@ public class Player {
 	public boolean isAllIn() {
 		return allIn;
 	}
+	
+	public void showHand(){
+		System.out.println(Poker.ranks[this.hand.get(0).getRank()] + "Of" + Poker.suits[this.hand.get(0).getSuit()]);
+		System.out.println(Poker.ranks[this.hand.get(1).getRank()] + "Of" + Poker.suits[this.hand.get(1).getSuit()]);
+	}
 
 	
 	public int bet(int minimumBet){
@@ -147,13 +153,26 @@ public class Player {
 	}
 	
 	
-	public void call(int minimumBet){
-		this.bet = minimumBet - this.totalBet;
-		this.totalBet = minimumBet;
-		System.out.println("Sua aposta e: " + this.bet);
-		
+	public int call(int minimumBet){
+		if(minimumBet <= this.chips ){
+			this.bet = minimumBet - this.totalBet;
+			this.totalBet += this.bet;
+			System.out.println("Sua aposta e: " + this.bet);
+			return this.bet;
+		}else{
+			this.bet = this.chips;
+			this.totalBet += this.bet;
+			this.allIn = true;
+			System.out.println("Fichas insuficientes para Call, aposta todas as fichas" + this.bet);
+			return this.bet;
+		}
 	}
 	
-	
+	public void readyPlayer(){
+		if(this.isFold != true && this.inGame != false){
+			this.isCheck = false;
+			this.totalBet = 0;
+		}
+	}
 
 }

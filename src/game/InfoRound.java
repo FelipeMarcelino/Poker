@@ -3,19 +3,47 @@ package game;
 public class InfoRound {
 
 	private int minimumBet;
-	private int totalPlayersInGame;
-	private int whoWins;
+	private int whoWinsRound;
+	private int whoWinsTurn;
+	private int totalBetTurn;
+	private int totalBetRound;
+	
+	public int getTotalBetTurn() {
+		return totalBetTurn;
+	}
+
+	public void sumTotalBetTurn(int totalBetTurn) {
+		this.totalBetTurn += totalBetTurn;
+	}
+
+	public int getTotalBetRound() {
+		return totalBetRound;
+	}
+
+	public void sumTotalBetRound(int totalBetRound) {
+		this.totalBetRound += totalBetRound;
+	}
+
 	private boolean nextTurn;
 	
-	public int getWhoWins() {
-		return whoWins;
-	}
-
-	public void setWhoWins(int whoWins) {
-		this.whoWins = whoWins;
-	}
 
 	
+	public int getWhoWinsRound() {
+		return whoWinsRound;
+	}
+
+	public void setWhoWinsRound(int whoWinsRound) {
+		this.whoWinsRound = whoWinsRound;
+	}
+
+	public int getWhoWinsTurn() {
+		return whoWinsTurn;
+	}
+
+	public void setWhoWinsTurn(int whoWinsTurn) {
+		this.whoWinsTurn = whoWinsTurn;
+	}
+
 	public int getMinimumBet() {
 		return minimumBet;
 	}
@@ -24,13 +52,7 @@ public class InfoRound {
 	}
 	
 
-	public void setPlayersInGame(int totalPlayersInGame){
-		this.totalPlayersInGame = totalPlayersInGame;
-	}
 	
-	public int getPlayersInGame(){
-		return this.totalPlayersInGame;
-	}
 
 	public boolean isNextTurn() {
 		return nextTurn;
@@ -38,6 +60,14 @@ public class InfoRound {
 
 	public void setNextTurn(boolean nextTurn) {
 		this.nextTurn = nextTurn;
+	}
+	
+	public void initTotalBetRound(){
+		this.totalBetRound = 0;
+	}
+	
+	public void initTotalBetTurn(){
+		this.totalBetTurn = 0;
 	}
 	
 	

@@ -21,7 +21,7 @@ public class GeneratePlayers implements GenerateCommand{
 	
 	@Override
 	public void execute() {
-		//this.playerList.generatePlayers(this.playersNames,this.initChips);
+		this.playerList.generatePlayers(this.playersNames,this.initChips);
 		
 	}
 
