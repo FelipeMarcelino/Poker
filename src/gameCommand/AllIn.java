@@ -7,8 +7,7 @@ public class AllIn implements GameCommand {
 
 	private PlayersList playersList;
 	private InfoRound infoRound;
-	private int whoCommand;
-	private int minimumBet;
+	private int bet;
 	
 	public AllIn(PlayersList playersList,InfoRound infoRound){
 		this.playersList = playersList;
@@ -17,8 +16,10 @@ public class AllIn implements GameCommand {
 
 	@Override
 	public void execute() {
-		this.minimumBet =  this.playersList.selectPlayer(0).allIn();
-		if(this.minimumBet > this.infoRound.getMinimumBet()) this.infoRound.setMinimumBet(this.minimumBet);
+		this.bet =  this.playersList.selectPlayer(0).allIn();
+		this.infoRound.sumTotalBetRound(this.bet);
+		this.infoRound.sumTotalBetTurn(this.bet);
+		if(this.bet > this.infoRound.getMinimumBet()) this.infoRound.setMinimumBet(this.bet);
 	}
 	
 }

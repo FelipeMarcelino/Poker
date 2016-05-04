@@ -7,8 +7,7 @@ public class Bet implements GameCommand {
 	
 	private PlayersList playersList;
 	private InfoRound infoRound;
-	private int whoCommand;
-	private int minimumBet;
+	private int bet;
 	
 	public Bet(PlayersList playersList,InfoRound infoRound){
 		this.playersList = playersList;
@@ -17,8 +16,10 @@ public class Bet implements GameCommand {
 
 	@Override
 	public void execute() {
-		this.minimumBet =  this.playersList.selectPlayer(0).bet(this.infoRound.getMinimumBet());
-		if(this.minimumBet > this.infoRound.getMinimumBet()) this.infoRound.setMinimumBet(this.minimumBet);
+		this.bet =  this.playersList.selectPlayer(0).bet(this.infoRound.getMinimumBet());
+		this.infoRound.sumTotalBetRound(this.bet);
+		this.infoRound.sumTotalBetTurn(this.bet);
+		if(this.bet > this.infoRound.getMinimumBet()) this.infoRound.setMinimumBet(this.bet);
 	}
 
 	
