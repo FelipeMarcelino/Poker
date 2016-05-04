@@ -17,7 +17,7 @@ public class Bet implements GameCommand {
 
 	@Override
 	public void execute() {
-		this.minimumBet =  this.playersList.selectPlayer(this.whoCommand).bet(this.infoRound.getMinimumBet());
+		this.minimumBet =  this.playersList.selectPlayer(0).bet(this.infoRound.getMinimumBet());
 		if(this.minimumBet > this.infoRound.getMinimumBet()) this.infoRound.setMinimumBet(this.minimumBet);
 	}
 

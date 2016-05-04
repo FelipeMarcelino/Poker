@@ -15,7 +15,7 @@ public class Fold implements GameCommand{
 
 	@Override
 	public void execute() {
-		//this.playersList.selectPlayer(this.whoCommand).fold();
+		this.playersList.selectPlayer(0).fold();
 	}
 	
 	

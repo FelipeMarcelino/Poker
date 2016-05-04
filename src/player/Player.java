@@ -22,6 +22,9 @@ public class Player {
 	private int totalBet;
 	
 	
+	
+
+	
 	public Player(String name,int id,int chips){
 		this.name = name;
 		this.id = id;
@@ -96,6 +99,12 @@ public class Player {
 	public boolean isCheck(){
 		return this.isCheck;
 	}
+	
+
+	public boolean isAllIn() {
+		return allIn;
+	}
+
 	
 	public int bet(int minimumBet){
 		minimumBet -= this.totalBet;

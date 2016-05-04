@@ -3,10 +3,9 @@ package game;
 public class InfoRound {
 
 	private int minimumBet;
-	private int whoPlayerTurn;
-	private int totalPlayers;
 	private int totalPlayersInGame;
 	private int whoWins;
+	private boolean nextTurn;
 	
 	public int getWhoWins() {
 		return whoWins;
@@ -16,9 +15,6 @@ public class InfoRound {
 		this.whoWins = whoWins;
 	}
 
-	public void setTotalPlayers(int totalPlayers){
-		this.totalPlayers = totalPlayers;
-	}
 	
 	public int getMinimumBet() {
 		return minimumBet;
@@ -27,16 +23,7 @@ public class InfoRound {
 		this.minimumBet = minimumBet;
 	}
 	
-	public void setFirstPlayer(int whoPlayerTurn) {
-		this.whoPlayerTurn = whoPlayerTurn;
-	}
-	
-	public int rotateTurnPlayer(){
-		this.whoPlayerTurn += 1;
-		if(this.whoPlayerTurn == this.totalPlayers) this.whoPlayerTurn = 0;
-		return this.whoPlayerTurn;
-	}
-	
+
 	public void setPlayersInGame(int totalPlayersInGame){
 		this.totalPlayersInGame = totalPlayersInGame;
 	}
@@ -44,6 +31,15 @@ public class InfoRound {
 	public int getPlayersInGame(){
 		return this.totalPlayersInGame;
 	}
+
+	public boolean isNextTurn() {
+		return nextTurn;
+	}
+
+	public void setNextTurn(boolean nextTurn) {
+		this.nextTurn = nextTurn;
+	}
+	
 	
 	
 	

@@ -15,7 +15,7 @@ public class Check implements GameCommand {
 
 	@Override
 	public void execute() {
-		//this.playersList.selectPlayer(this.whoCommand).check();
+		this.playersList.selectPlayer(0).check();
 	}
 
 }

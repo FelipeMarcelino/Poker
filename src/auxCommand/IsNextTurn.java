@@ -1,22 +1,19 @@
-package gameCommand;
+package auxCommand;
 
 import game.InfoRound;
 import player.PlayersList;
 
-public class Call implements GameCommand {
-
+public class IsNextTurn implements AuxCommand{
 	private PlayersList playersList;
 	private InfoRound infoRound;
-	private int whoCommand;
 	
-	public Call(PlayersList playersList,InfoRound infoRound){
+	public IsNextTurn(PlayersList playersList,InfoRound infoRound){
 		this.playersList = playersList;
 		this.infoRound = infoRound;
 	}
 	
 	@Override
 	public void execute() {
-		this.playersList.selectPlayer(0).allIn();	
+		this.infoRound.setNextTurn(this.playersList.readyForNextTurn(this.infoRound.getMinimumBet()));
 	}
-
 }
