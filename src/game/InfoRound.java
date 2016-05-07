@@ -1,5 +1,9 @@
 package game;
 
+import java.util.ArrayList;
+
+import deck.Card;
+
 public class InfoRound {
 
 	private int minimumBet;
@@ -69,7 +73,11 @@ public class InfoRound {
 	}
 	
 	public void showBoardCard(ArrayList<Card> board){
-		
+		for(int i = 0; i < this.indexShowBoardCard; i++){
+			System.out.println(Card.ranks[board.get(i).getRank()] + " of " + Card.suits[board.get(i).getSuit()]);
+		}
+		this.indexShowBoardCard ++;
+		if(this.indexShowBoardCard == 6) this.indexShowBoardCard = 0;
 	}
 	
 	

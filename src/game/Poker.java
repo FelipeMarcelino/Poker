@@ -13,6 +13,7 @@ import auxCommand.PlayersInGame;
 import auxCommand.ReadyPlayer;
 import auxCommand.RotatePlayersList;
 import auxCommand.SetPokerHand;
+import auxCommand.ShowBoardCards;
 import auxCommand.ShowHandPlayer;
 import auxCommand.ShuffleDeck;
 import deck.Card;
@@ -74,6 +75,7 @@ public class Poker {
 	private IsNextTurn isNextTurn;
 	private ReadyPlayer readyPlayer;
 	private ShowHandPlayer showHandPlayer;
+	private ShowBoardCards showBoardCards;
 	
 	public static boolean isNumeric(String str)  
 	{  
@@ -114,6 +116,7 @@ public class Poker {
 		isNextTurn =  new IsNextTurn(playersList,infoRound);
 		readyPlayer = new ReadyPlayer(playersList);
 		showHandPlayer = new ShowHandPlayer(playersList);
+		showBoardCards = new ShowBoardCards(board,infoRound);
 	}
 	
 	public void generate() {
@@ -306,8 +309,11 @@ public class Poker {
 		this.infoRound.initTotalBetTurn();
 		this.readyPlayer.execute();
 		this.rotatePlayersList.execute();
+		this.showBoardCards.execute();
 		
-		
+		System.out.println("Total de aposta no Pre-Flop: "+ this.totalBetPerTurn);
+		System.out.println("Total de aposta no Round: "+ this.totalBetPerRound);
+		System.out.println("Saiu do flop");
 		
 	}
 	
