@@ -7,6 +7,9 @@ public class InfoRound {
 	private int whoWinsTurn;
 	private int totalBetTurn;
 	private int totalBetRound;
+	private int indexShowBoardCard = 3;
+	private boolean nextTurn;
+
 	
 	public int getTotalBetTurn() {
 		return totalBetTurn;
@@ -22,10 +25,7 @@ public class InfoRound {
 
 	public void sumTotalBetRound(int totalBetRound) {
 		this.totalBetRound += totalBetRound;
-	}
-
-	private boolean nextTurn;
-	
+	}	
 
 	
 	public int getWhoWinsRound() {
@@ -52,8 +52,6 @@ public class InfoRound {
 	}
 	
 
-	
-
 	public boolean isNextTurn() {
 		return nextTurn;
 	}
@@ -70,7 +68,9 @@ public class InfoRound {
 		this.totalBetTurn = 0;
 	}
 	
-	
+	public void showBoardCard(ArrayList<Card> board){
+		
+	}
 	
 	
 }

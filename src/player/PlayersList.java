@@ -19,7 +19,7 @@ public class PlayersList {
 	}
 	
 	public void rotatePlayersList(){
-		Collections.rotate(players, 1);
+		Collections.rotate(players, -1);
 	}
 	
 	public int getInitChips(){
@@ -30,19 +30,20 @@ public class PlayersList {
 		return this.players.size();
 	}
 	
+	
 	public Player selectPlayer(int playerIndex){
 		return this.players.get(playerIndex);
 	}
 	
 	public boolean readyForNextTurn(int betPerPlayer){
 		for(int i = 0; i < this.players.size(); i++){
-			if(this.players.get(i).isFold() != false){
+			if(this.players.get(i).isFold() == false){
 				if(this.players.get(i).getTotalBet() != betPerPlayer){
 					if(this.players.get(i).isAllIn() != true) return false;
 				}
 			}
 		}
-		
+	
 		return true;
 	}
 	

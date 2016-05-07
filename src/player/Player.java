@@ -21,6 +21,8 @@ public class Player {
 	private Scanner reader = new Scanner(System.in);
 	private int bet;
 	private int totalBet;
+	private double dBet;
+	private String input;
 	
 	
 	
@@ -107,65 +109,59 @@ public class Player {
 	}
 	
 	public void showHand(){
-		System.out.println(Poker.ranks[this.hand.get(0).getRank()] + "Of" + Poker.suits[this.hand.get(0).getSuit()]);
-		System.out.println(Poker.ranks[this.hand.get(1).getRank()] + "Of" + Poker.suits[this.hand.get(1).getSuit()]);
+		System.out.println(Poker.ranks[this.hand.get(0).getRank()] + " Of " + Poker.suits[this.hand.get(0).getSuit()]);
+		System.out.println(Poker.ranks[this.hand.get(1).getRank()] + " Of " + Poker.suits[this.hand.get(1).getSuit()]);
 	}
 
 	
 	public int bet(int minimumBet){
-		minimumBet -= this.totalBet;
-		this.bet = -1;
-		System.out.println("Aposta minima ->" + minimumBet + "(Se voce nao tiver fichas suficientes, "
-				+ ",ou caso aposte mais do que tenha, todas serão apostadas) : ");
-		while(this.bet < 0 ){
-			this.bet = reader.nextInt();
-			if(this.bet < 0) System.out.println("Sua aposta nao pode ser negativa, tente outra vez");
-			else if(this.bet < minimumBet && this.chips > this.bet){
-				System.out.println("Sua aposta é menor que a aposta minima, porem você tem"
-						+ "fichas suficiente, logo sera apostado a aposta minima! Escolha outra aposta");
-				this.bet = -1;
+		if(minimumBet - this.totalBet != 0) minimumBet -= this.totalBet;
+		
+		System.out.println("Aposta minima (Valores double sera arredondado) -> " + minimumBet );
+		while(true){
+			while(true){
+				input = reader.next();
+				if(Poker.isNumeric(input) == true){
+					this.dBet = Double.parseDouble(input);
+					this.bet = (int) Math.round(this.dBet);
+					break;
+				}
+				else{
+					System.out.println("Nao e um numero, coloque outro valor");
+				}
+			}
 			
-			}else break;
+			if(this.bet < minimumBet || this.bet > this.chips) System.out.println("Valor fora do limite de apostas");
+			else break;
+			
 		}
-		this.bet = reader.nextInt();
-		if(this.bet >= minimumBet  && this.bet < this.chips){
-			this.totalBet+= this.bet;
-			this.chips -= this.bet;
-			return this.bet;
-		}else {
-			this.bet = this.chips;
-			this.chips = 0;
-			this.allIn = true;
-			this.totalBet += this.bet;
-			return this.bet;
-		}
+		this.chips -= this.bet;
+		this.totalBet += this.bet;
+		return this.bet + minimumBet;
 		
 		
 	}
 	
 	public int allIn(){
-		System.out.println("Todas as fichas apostadas!");
+		System.out.print("Todas as fichas apostadas!(");
 		this.bet = this.chips;
 		this.chips = 0;
 		this.allIn = true;
-		this.totalBet = this.bet;
-		return this.bet;
+		this.totalBet += this.bet;
+		System.out.println(this.bet + ")");
+		return this.totalBet;
 	}
 	
 	
 	public int call(int minimumBet){
-		if(minimumBet <= this.chips ){
+
 			this.bet = minimumBet - this.totalBet;
 			this.totalBet += this.bet;
 			System.out.println("Sua aposta e: " + this.bet);
+			this.chips -= this.bet;
 			return this.bet;
-		}else{
-			this.bet = this.chips;
-			this.totalBet += this.bet;
-			this.allIn = true;
-			System.out.println("Fichas insuficientes para Call, aposta todas as fichas" + this.bet);
-			return this.bet;
-		}
+		
+		
 	}
 	
 	public void readyPlayer(){

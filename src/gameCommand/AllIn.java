@@ -17,8 +17,6 @@ public class AllIn implements GameCommand {
 	@Override
 	public void execute() {
 		this.bet =  this.playersList.selectPlayer(0).allIn();
-		this.infoRound.sumTotalBetRound(this.bet);
-		this.infoRound.sumTotalBetTurn(this.bet);
 		if(this.bet > this.infoRound.getMinimumBet()) this.infoRound.setMinimumBet(this.bet);
 	}
 	
