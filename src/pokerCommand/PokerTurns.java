@@ -2,16 +2,16 @@ package pokerCommand;
 
 import game.Poker;
 
-public class PokerPreFlop implements PokerCommand {
+public class PokerTurns implements PokerCommand {
 	private Poker poker;
 	
-	public PokerPreFlop(Poker poker){
+	public PokerTurns(Poker poker){
 		this.poker = poker;
 	}
 	
 	@Override
 	public void execute() {
-		poker.preFlop();
+		poker.Turns();
 		
 	}
 }

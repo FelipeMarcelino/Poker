@@ -1,21 +1,23 @@
 package game;
 
-import pokerCommand.PokerFlop;
+
 import pokerCommand.PokerGenerate;
-import pokerCommand.PokerPreFlop;
-import pokerCommand.PokerRiver;
-import pokerCommand.PokerTurn;
+import pokerCommand.PokerTurns;
 import pokerCommand.PokerWhoWinsGame;
 import pokerCommand.PokerWhoWinsRound;
 
 public class StartGame {
 
-	public static void startGame(PokerGenerate pokerGenerate,PokerPreFlop pokerPreFlop,PokerFlop pokerFlop,PokerTurn pokerTurn,
-	PokerRiver pokerRiver,PokerWhoWinsGame pokerWhoWinsGame,PokerWhoWinsRound pokerWhoWinsRound){
+	public static void startGame(PokerGenerate pokerGenerate,PokerTurns pokerTurns,
+			PokerWhoWinsGame pokerWhoWinsGame,PokerWhoWinsRound pokerWhoWinsRound){
 		
 		pokerGenerate.execute();
-		pokerPreFlop.execute();
-		pokerFlop.execute();
+		
+		//Some code here: while//
+		pokerTurns.execute();
+		
+		
+		//Finish while, decide who win game//
 		
 		
 	}

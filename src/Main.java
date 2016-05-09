@@ -1,10 +1,7 @@
 import game.Poker;
 import game.StartGame;
-import pokerCommand.PokerFlop;
 import pokerCommand.PokerGenerate;
-import pokerCommand.PokerPreFlop;
-import pokerCommand.PokerRiver;
-import pokerCommand.PokerTurn;
+import pokerCommand.PokerTurns;
 import pokerCommand.PokerWhoWinsGame;
 import pokerCommand.PokerWhoWinsRound;
 
@@ -14,14 +11,11 @@ public class Main {
 		
 		Poker poker = new Poker();
 		PokerGenerate pokerGenerate = new PokerGenerate(poker);
-		PokerPreFlop pokerPreFlop = new PokerPreFlop(poker);
-		PokerFlop pokerFlop = new PokerFlop(poker);
-		PokerTurn pokerTurn = new PokerTurn(poker);
-		PokerRiver pokerRiver = new PokerRiver(poker);
+		PokerTurns pokerTurns= new PokerTurns(poker);
 		PokerWhoWinsGame pokerWhoWinsGame = new PokerWhoWinsGame(poker);
 		PokerWhoWinsRound pokerWhoWinsRound = new PokerWhoWinsRound(poker);
 		
-		StartGame.startGame(pokerGenerate, pokerPreFlop, pokerFlop, pokerTurn, pokerRiver, pokerWhoWinsGame, pokerWhoWinsRound);
+		StartGame.startGame(pokerGenerate, pokerTurns,pokerWhoWinsGame, pokerWhoWinsRound);
 		
 	}
 

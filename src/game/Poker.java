@@ -30,44 +30,44 @@ import player.PlayersList;
 import pokerHand.PokerHand;
 
 public class Poker {
-	
-	public static String[] suits = {"Hearts","Diamonds","Spade","Clubs"};
-	public static String[] ranks = {"Ace","2","3","4","5","6","7","8","9","10","Jack","Queens","King"};
-	
+
+	public static String[] suits = { "Hearts", "Diamonds", "Spade", "Clubs" };
+	public static String[] ranks = { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queens", "King" };
+
 	private Deck deck;
 	private PlayersList playersList;
 	private PokerHand pokerHand;
 	private ArrayList<Card> board;
-	private ArrayList<String> playersNames;		
+	private ArrayList<String> playersNames;
 	private InfoRound infoRound;
 	private Scanner reader;
 	private int totalPlayers;
 	private int idPlayerBigBlind;
-	private int idPlayerDealer;
+	private int idPlayerDealer = -1;
 	private int idCurrentPlayer;
 	private static int currentPlayer = 0;
 	private int totalBetPerRound;
 	private int totalBetPerTurn;
+	private int turn = 0;
 	private String name;
 	private String input;
 	private double dTotalPlayers;
-	
 
-	//Comandos
-	
+	// Comandos
+
 	private GenerateDeck generateDeck;
-	private  ShuffleDeck shuffleDeck;
+	private ShuffleDeck shuffleDeck;
 	private GeneratePlayers generatePlayers;
-	private  RotatePlayersList rotatePlayersList;
-	private  DrawCardFromDeck drawCardFromDeck;
-	private  SetPokerHand setPokerHand;
+	private RotatePlayersList rotatePlayersList;
+	private DrawCardFromDeck drawCardFromDeck;
+	private SetPokerHand setPokerHand;
 	private CompareHands compareHands;
 	private AllIn allIn;
-	private  Bet bet;
-	private  Call call;
-	private  Check check;
-	private  Fold fold;
-	private  PlayersInGame playersInGame;
+	private Bet bet;
+	private Call call;
+	private Check check;
+	private Fold fold;
+	private PlayersInGame playersInGame;
 	private GetWhoWins getWhoWins;
 	private EliminatePlayers eliminatePlayers;
 	private IsNextTurn isNextTurn;
@@ -75,72 +75,70 @@ public class Poker {
 	private ShowHandPlayer showHandPlayer;
 	private ShowBoardCards showBoardCards;
 	private ShowAvaliableCommands showAvaliableCommands;
-	
-	public static boolean isNumeric(String str)  
-	{  
-	  try  
-	  {  
-	    double d = Double.parseDouble(str);  
-	  }  
-	  catch(NumberFormatException nfe)  
-	  {  
-	    return false;  
-	  }  
-	  return true;  
+
+	public static boolean isNumeric(String str) {
+		try {
+			double d = Double.parseDouble(str);
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+		return true;
 	}
-	
-	public Poker(){
+
+	public Poker() {
 		deck = new Deck();
 		playersList = new PlayersList();
 		pokerHand = new PokerHand();
 		board = new ArrayList<Card>();
-		playersNames = new ArrayList<String>();		
+		playersNames = new ArrayList<String>();
 		infoRound = new InfoRound();
 		reader = new Scanner(System.in);
 		generateDeck = new GenerateDeck(deck);
 		shuffleDeck = new ShuffleDeck(deck);
-		generatePlayers = new GeneratePlayers(playersList,playersNames);
+		generatePlayers = new GeneratePlayers(playersList, playersNames);
 		rotatePlayersList = new RotatePlayersList(playersList);
-		drawCardFromDeck = new DrawCardFromDeck(playersList,deck,board);
-		setPokerHand = new SetPokerHand(playersList,pokerHand,board);
-		compareHands = new CompareHands(playersList,pokerHand);
-		allIn = new AllIn(playersList,infoRound);
-		bet = new Bet(playersList,infoRound);
-		call = new Call(playersList,infoRound);
-		check = new Check(playersList,infoRound);
-		fold = new Fold(playersList,infoRound);
-		playersInGame = new PlayersInGame(playersList,infoRound);
-		getWhoWins = new GetWhoWins(playersList,infoRound);
-		eliminatePlayers = new EliminatePlayers(playersList,infoRound);
-		isNextTurn =  new IsNextTurn(playersList,infoRound);
+		drawCardFromDeck = new DrawCardFromDeck(playersList, deck, board);
+		setPokerHand = new SetPokerHand(playersList, pokerHand, board);
+		compareHands = new CompareHands(playersList, pokerHand);
+		allIn = new AllIn(playersList, infoRound);
+		bet = new Bet(playersList, infoRound);
+		call = new Call(playersList, infoRound);
+		check = new Check(playersList, infoRound);
+		fold = new Fold(playersList, infoRound);
+		playersInGame = new PlayersInGame(playersList, infoRound);
+		getWhoWins = new GetWhoWins(playersList, infoRound);
+		eliminatePlayers = new EliminatePlayers(playersList, infoRound);
+		isNextTurn = new IsNextTurn(playersList, infoRound);
 		readyPlayer = new ReadyPlayer(playersList);
 		showHandPlayer = new ShowHandPlayer(playersList);
-		showBoardCards = new ShowBoardCards(board,infoRound);
-		showAvaliableCommands = new ShowAvaliableCommands(playersList,infoRound,showHandPlayer, bet, 
-				call, fold, check,allIn);
+		showBoardCards = new ShowBoardCards(board, infoRound);
+		showAvaliableCommands = new ShowAvaliableCommands(playersList, infoRound, showHandPlayer, bet, call, fold,
+				check, allIn);
 	}
-	
+
 	public void generate() {
 
 		System.out.print("Escolha o total de jogadores(2 to 10): ");
-		
-		while(true){
+
+		while (true) {
 			this.input = reader.next();
-			if(isNumeric(input) == true){
+			if (isNumeric(input) == true) {
 				this.dTotalPlayers = Double.parseDouble(input);
 				this.totalPlayers = (int) Math.round(this.dTotalPlayers);
-				if(this.totalPlayers != this.dTotalPlayers) System.out.println("Numero double, tente outro valor");
-				else{
-					if(this.totalPlayers < 2 || this.totalPlayers > 10) System.out.println("Fora do limite de jogadores");
-					else break;
+				if (this.totalPlayers != this.dTotalPlayers)
+					System.out.println("Numero double, tente outro valor");
+				else {
+					if (this.totalPlayers < 2 || this.totalPlayers > 10)
+						System.out.println("Fora do limite de jogadores");
+					else
+						break;
 				}
-			}
-			else{
+			} else {
 				System.out.println("Nao e um numero, coloque outro valor");
 			}
-			
+
 		}
-	
+
 		System.out.println("Insira o nome dos jogadores(Min = 1, Max = 20)");
 
 		for (int i = 0; i < this.totalPlayers; i++) {
@@ -159,60 +157,64 @@ public class Poker {
 		this.generateDeck.execute();
 
 	}
-	
-	public void preFlop(){
-		
-		this.shuffleDeck.execute();
-		this.drawCardFromDeck.execute();
-		this.readyPlayer.execute();
-		
-		this.infoRound.initTotalBetRound();
-		this.infoRound.initTotalBetTurn();
-		
-		this.idPlayerDealer = this.playersList.selectPlayer(currentPlayer).getId();
-		
-		this.totalBetPerRound = 0;
-		
-		System.out.println("Inicio Pre-Flop");
-		
-		//Small Blind (5%)
+
+	public void Turns() {
+
+		if (this.turn == 0) {
+			this.shuffleDeck.execute();
+			this.drawCardFromDeck.execute();
+			this.readyPlayer.execute();
+			this.infoRound.initTotalBetRound();
+			this.infoRound.initTotalBetTurn();
+			this.idPlayerDealer = this.playersList.selectPlayer(currentPlayer).getId();
+			System.out.println("Inicio Pre-Flop");
+
+			// Small Blind (5%)
+			this.rotatePlayersList.execute();
+			System.out.println("Player: " + this.playersList.selectPlayer(currentPlayer).getName());
+			System.out.println("Aposta automatica do small blind");
+			this.infoRound.setMinimumBet((int) Math.round(this.playersList.getInitChips() * 0.05));
+			this.call.execute();
+			System.out.println("");
+			// Big Blind (10%)
+			this.rotatePlayersList.execute();
+			System.out.println("Player: " + this.playersList.selectPlayer(currentPlayer).getName());
+			System.out.println("Aposta automatica do big blind");
+			this.infoRound.setMinimumBet((int) Math.round(this.playersList.getInitChips() * 0.1));
+			this.call.execute();
+			this.idPlayerBigBlind = this.playersList.selectPlayer(currentPlayer).getId();
+			System.out.println("");
+			// Next player after Big Blind
+		} else if (this.turn == 1) {
+			System.out.println("Inicio Flop");
+			// Some code here//
+		} else if (this.turn == 2) {
+			System.out.println("Inicio Turn");
+			// some code here//
+		} else if (this.turn == 3) {
+			System.out.println("Inicio River");
+			// some code here//
+		}
+
 		this.rotatePlayersList.execute();
-		System.out.println("Player: " + this.playersList.selectPlayer(currentPlayer).getName());
-		System.out.println("Aposta automatica do small blind");
-		this.infoRound.setMinimumBet((int ) Math.round(this.playersList.getInitChips() * 0.05));
-		this.call.execute();
-		System.out.println("");
-		//Big Blind (10%)
-		this.rotatePlayersList.execute();
-		System.out.println("Player: " + this.playersList.selectPlayer(currentPlayer).getName());
-		System.out.println("Aposta automatica do big blind");
-		this.infoRound.setMinimumBet((int ) Math.round(this.playersList.getInitChips() * 0.1));
-		this.call.execute();
-		this.idPlayerBigBlind = this.playersList.selectPlayer(currentPlayer).getId();
-		System.out.println("");
-		//Next player after Big Blind
-		
-		this.rotatePlayersList.execute();
-		
-		while(true){
-			if(this.playersList.selectPlayer(currentPlayer).isFold() == false && 
-					this.playersList.selectPlayer(currentPlayer).inGame() == true){
-				
-				
+
+		while (true) {
+			if (this.playersList.selectPlayer(currentPlayer).isFold() == false
+					&& this.playersList.selectPlayer(currentPlayer).inGame() == true) {
+
 				this.showAvaliableCommands.execute();
-				
-				
-				
-			}else {
-				System.out.println(this.playersList.selectPlayer(currentPlayer).getName() +" -> Fold ou fora do game");
+
+			} else {
+				System.out.println(this.playersList.selectPlayer(currentPlayer).getName() + " -> Fold ou fora do game");
 			}
 			System.out.println("");
-			if(this.playersList.selectPlayer(currentPlayer).getId() == this.idPlayerBigBlind){
+			if (this.playersList.selectPlayer(currentPlayer).getId() == this.idPlayerBigBlind) {
 				this.isNextTurn.execute();
-				if(this.infoRound.isNextTurn() == true) {
+				if (this.infoRound.isNextTurn() == true) {
 					this.idCurrentPlayer = -1;
-					while(true){ 
-						if(this.playersList.selectPlayer(currentPlayer).getId() == this.idPlayerDealer) break;
+					while (true) {
+						if (this.playersList.selectPlayer(currentPlayer).getId() == this.idPlayerDealer)
+							break;
 						this.rotatePlayersList.execute();
 					}
 					break;
@@ -220,50 +222,49 @@ public class Poker {
 			}
 			this.rotatePlayersList.execute();
 		}
-		
-		
+
 		this.totalBetPerTurn = 0;
-		for(int i = 0; i < playersList.getSizeList(); i++){
+		for (int i = 0; i < playersList.getSizeList(); i++) {
 			this.totalBetPerTurn += playersList.selectPlayer(i).getTotalBet();
 		}
 		this.totalBetPerRound += this.totalBetPerTurn;
-		System.out.println("");
-		System.out.println("Total de aposta no Pre-Flop: "+ this.totalBetPerTurn);
-		System.out.println("Total de aposta no Round: "+ this.totalBetPerRound);
-		System.out.println("Saiu do Pre-Flop\n");
+		if (this.turn == 0) {
+			System.out.println("");
+			System.out.println("Total de aposta no Pre-Flop: " + this.totalBetPerTurn);
+			System.out.println("Total de aposta no Round: " + this.totalBetPerRound);
+			System.out.println("Saiu do Pre-Flop\n");
+		} else if (this.turn == 1) {
+			System.out.println("");
+			System.out.println("Total de aposta no Flop: " + this.totalBetPerTurn);
+			System.out.println("Total de aposta no Round: " + this.totalBetPerRound);
+			System.out.println("Saiu do Flop\n");
+		} else if (this.turn == 2) {
+			System.out.println("");
+			System.out.println("Total de aposta no Turn: " + this.totalBetPerTurn);
+			System.out.println("Total de aposta no Round: " + this.totalBetPerRound);
+			System.out.println("Saiu do Turn\n");
+		} else if (this.turn == 3) {
+			// **** Some code here ****//
+			System.out.println("");
+			System.out.println("Total de aposta no River: " + this.totalBetPerTurn);
+			System.out.println("Total de aposta no Round: " + this.totalBetPerRound);
+			System.out.println("Saiu do River\n");
+
+		}
 		
+
+		this.turn++;
+		if (this.turn == 0)
+			this.turn = 0;
+
 	}
-	
-	public void flop(){
-		System.out.println("Inicio Flop");
-		this.infoRound.initTotalBetTurn();
-		this.readyPlayer.execute();
-		this.rotatePlayersList.execute();
-		this.showBoardCards.execute();
-		
-		
-		
-		this.totalBetPerTurn = 0;
-		System.out.println("Total de aposta no Flop: "+ this.totalBetPerTurn);
-		System.out.println("Total de aposta no Round: "+ this.totalBetPerRound);
-		System.out.println("Saiu do Flop\n");
-		
+
+	public void whoWinsRound() {
+
 	}
-	
-	public void turn(){
-		
+
+	public void whoWinsGame() {
+
 	}
-	
-	public void river(){
-		
-	}
-	
-	public void whoWinsRound(){
-		
-	}
-	
-	public void whoWinsGame(){
-		
-	}
-	
+
 }
