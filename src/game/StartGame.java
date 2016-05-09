@@ -15,6 +15,7 @@ public class StartGame {
 		
 		pokerGenerate.execute();
 		pokerPreFlop.execute();
+		pokerFlop.execute();
 		
 		
 	}

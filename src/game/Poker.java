@@ -13,6 +13,7 @@ import auxCommand.PlayersInGame;
 import auxCommand.ReadyPlayer;
 import auxCommand.RotatePlayersList;
 import auxCommand.SetPokerHand;
+import auxCommand.ShowAvaliableCommands;
 import auxCommand.ShowBoardCards;
 import auxCommand.ShowHandPlayer;
 import auxCommand.ShuffleDeck;
@@ -44,15 +45,12 @@ public class Poker {
 	private int idPlayerBigBlind;
 	private int idPlayerDealer;
 	private int idCurrentPlayer;
-	private int option;
 	private static int currentPlayer = 0;
 	private int totalBetPerRound;
 	private int totalBetPerTurn;
 	private String name;
 	private String input;
 	private double dTotalPlayers;
-	private boolean[] avaliableOptions = new boolean[5];
-	
 	
 
 	//Comandos
@@ -76,6 +74,7 @@ public class Poker {
 	private ReadyPlayer readyPlayer;
 	private ShowHandPlayer showHandPlayer;
 	private ShowBoardCards showBoardCards;
+	private ShowAvaliableCommands showAvaliableCommands;
 	
 	public static boolean isNumeric(String str)  
 	{  
@@ -117,6 +116,8 @@ public class Poker {
 		readyPlayer = new ReadyPlayer(playersList);
 		showHandPlayer = new ShowHandPlayer(playersList);
 		showBoardCards = new ShowBoardCards(board,infoRound);
+		showAvaliableCommands = new ShowAvaliableCommands(playersList,infoRound,showHandPlayer, bet, 
+				call, fold, check,allIn);
 	}
 	
 	public void generate() {
@@ -197,80 +198,9 @@ public class Poker {
 			if(this.playersList.selectPlayer(currentPlayer).isFold() == false && 
 					this.playersList.selectPlayer(currentPlayer).inGame() == true){
 				
-				System.out.print("Player: " + this.playersList.selectPlayer(currentPlayer).getName());
-				System.out.println("->(Fichas disponiveis: "+ this.playersList.selectPlayer(currentPlayer).getChips() + ")");
-				System.out.println("Fichas apostadas nesse turno: " + this.playersList.selectPlayer(currentPlayer).getTotalBet());
-				System.out.println("Aposta minima: " + this.infoRound.getMinimumBet());
-				this.showHandPlayer.execute();
 				
-				Arrays.fill(this.avaliableOptions, Boolean.FALSE);
-				//Check avaliable
-				if(this.playersList.selectPlayer(currentPlayer).isCheck() == false){
-					this.avaliableOptions[0] = true;
-				}else{
-					if(this.playersList.selectPlayer(currentPlayer).isAllIn() == true) this.avaliableOptions[0] = true;
-				}
-				//Call avaliable
-				if(this.playersList.selectPlayer(currentPlayer).getChips() >= (this.infoRound.getMinimumBet() - 
-						this.playersList.selectPlayer(currentPlayer).getTotalBet())){
-					this.avaliableOptions[1] = true;
-					if(this.playersList.selectPlayer(currentPlayer).getTotalBet() == this.infoRound.getMinimumBet())
-						this.avaliableOptions[1] = false;
-					if(this.playersList.selectPlayer(currentPlayer).getChips() == (this.infoRound.getMinimumBet()
-							- this.playersList.selectPlayer(currentPlayer).getTotalBet()))
-						this.avaliableOptions[1] = false;
-				}
+				this.showAvaliableCommands.execute();
 				
-				//Bet avaliable
-				if(this.playersList.selectPlayer(currentPlayer).getChips() >= (this.infoRound.getMinimumBet() - 
-						this.playersList.selectPlayer(currentPlayer).getTotalBet())){
-					this.avaliableOptions[2] = true;
-					if(this.playersList.selectPlayer(currentPlayer).isAllIn() == true) this.avaliableOptions[2] = false;
-					if(this.playersList.selectPlayer(currentPlayer).getChips() == (this.infoRound.getMinimumBet()
-							- this.playersList.selectPlayer(currentPlayer).getTotalBet()))
-						this.avaliableOptions[2] = false;
-				}
-				
-				//All in avaliable
-				if(this.playersList.selectPlayer(currentPlayer).isAllIn() == false ) {
-					this.avaliableOptions[3] = true;
-				}
-				
-				//Fold avaliable
-				this.avaliableOptions[4] = true;
-				
-				
-				System.out.println("Opções que pode ser escolhidas");
-				if(this.avaliableOptions[0] == true) System.out.print("Check(0)-");
-				if(this.avaliableOptions[1] == true) System.out.print("Call(1)-");
-				if(this.avaliableOptions[2] == true) System.out.print("Bet(2)-");
-				if(this.avaliableOptions[3] == true) System.out.print("AllIn(3)-");
-				if(this.avaliableOptions[4] == true) System.out.println("Fold(4)");
-				
-				while(true){
-					while(true){
-						input = reader.next();
-						if(isNumeric(input) == true) break;
-						else{
-							System.out.println("N�o � um n�mero, coloque outro valor");
-						}
-					}
-					
-					this.option = Integer.parseInt(input);
-					
-					if(this.option > 4 || this.option < 0) System.out.println("Opcão fora do escopo aceitável");
-					else{
-						if(this.avaliableOptions[this.option] != true) System.out.println("Opcao não disponível");
-						else break;
-					}
-					
-				}
-				
-				if(this.option == 0) this.check.execute();
-				else if(this.option == 1) this.call.execute();
-				else if(this.option == 2) this.bet.execute();
-				else if(this.option == 3) this.allIn.execute();
-				else if(this.option == 4) this.fold.execute();
 				
 				
 			}else {
@@ -300,7 +230,7 @@ public class Poker {
 		System.out.println("");
 		System.out.println("Total de aposta no Pre-Flop: "+ this.totalBetPerTurn);
 		System.out.println("Total de aposta no Round: "+ this.totalBetPerRound);
-		System.out.println("Saiu do flop");
+		System.out.println("Saiu do Pre-Flop\n");
 		
 	}
 	
@@ -311,9 +241,12 @@ public class Poker {
 		this.rotatePlayersList.execute();
 		this.showBoardCards.execute();
 		
-		System.out.println("Total de aposta no Pre-Flop: "+ this.totalBetPerTurn);
+		
+		
+		this.totalBetPerTurn = 0;
+		System.out.println("Total de aposta no Flop: "+ this.totalBetPerTurn);
 		System.out.println("Total de aposta no Round: "+ this.totalBetPerRound);
-		System.out.println("Saiu do flop");
+		System.out.println("Saiu do Flop\n");
 		
 	}
 	
