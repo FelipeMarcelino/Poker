@@ -30,7 +30,7 @@ public class InfoRound {
 	private Scanner reader = new Scanner(System.in);
 
 	public int getMinimumBet() {
-		return minimumBet;
+		return this.minimumBet;
 	}
 
 	public void setMinimumBet(int minimumBet) {
@@ -38,7 +38,7 @@ public class InfoRound {
 	}
 
 	public boolean isNextTurn() {
-		return nextTurn;
+		return this.nextTurn;
 	}
 
 	public void setNextTurn(boolean nextTurn) {
@@ -54,7 +54,7 @@ public class InfoRound {
 	}
 
 	public int getPlayersInTurn() {
-		return playersInTurn;
+		return this.playersInTurn;
 	}
 
 	public void setPlayersInTurn() {
@@ -109,67 +109,67 @@ public class InfoRound {
 		System.out.println("Aposta minima: " + this.minimumBet);
 		showHandPlayer.execute();
 
-		Arrays.fill(avaliableOptions, Boolean.FALSE);
+		Arrays.fill(this.avaliableOptions, Boolean.FALSE);
 		// Check avaliable
 		if (playersList.selectPlayer(currentPlayer).isCheck() == false) {
-			avaliableOptions[0] = true;
+			this.avaliableOptions[0] = true;
 		} else {
 			if (playersList.selectPlayer(currentPlayer).isAllIn() == true)
-				avaliableOptions[0] = true;
+				this.avaliableOptions[0] = true;
 		}
 		// Call avaliable
 		if (playersList.selectPlayer(currentPlayer)
 				.getChips() >= (this.minimumBet - playersList.selectPlayer(currentPlayer).getTotalBet())) {
-			avaliableOptions[1] = true;
+			this.avaliableOptions[1] = true;
 			if (playersList.selectPlayer(currentPlayer).getTotalBet() == this.minimumBet)
-				avaliableOptions[1] = false;
+				this.avaliableOptions[1] = false;
 			if (playersList.selectPlayer(currentPlayer)
 					.getChips() == (this.minimumBet - playersList.selectPlayer(currentPlayer).getTotalBet()))
-				avaliableOptions[1] = false;
+				this.avaliableOptions[1] = false;
 		}
 
 		// Bet avaliable
 		if (playersList.selectPlayer(currentPlayer)
 				.getChips() >= (this.minimumBet - playersList.selectPlayer(currentPlayer).getTotalBet())) {
-			avaliableOptions[2] = true;
+			this.avaliableOptions[2] = true;
 			if (playersList.selectPlayer(currentPlayer).isAllIn() == true)
-				avaliableOptions[2] = false;
+				this.avaliableOptions[2] = false;
 			if (playersList.selectPlayer(currentPlayer)
 					.getChips() == (this.minimumBet - playersList.selectPlayer(currentPlayer).getTotalBet()))
-				avaliableOptions[2] = false;
+				this.avaliableOptions[2] = false;
 		}
 
 		// All in avaliable
 		if (playersList.selectPlayer(currentPlayer).isAllIn() == false) {
-			avaliableOptions[3] = true;
+			this.avaliableOptions[3] = true;
 		}
 
 		// Fold avaliable
-		avaliableOptions[4] = true;
+		this.avaliableOptions[4] = true;
 
-		System.out.println("Opcoes que pode ser escolhidas");
-		if (avaliableOptions[0] == true)
+		System.out.println("Opcoes que podem ser escolhidas");
+		if (this.avaliableOptions[0] == true)
 			System.out.print("Check(0)-");
-		if (avaliableOptions[1] == true)
+		if (this.avaliableOptions[1] == true)
 			System.out.print("Call(1)-");
-		if (avaliableOptions[2] == true)
+		if (this.avaliableOptions[2] == true)
 			System.out.print("Bet(2)-");
-		if (avaliableOptions[3] == true)
+		if (this.avaliableOptions[3] == true)
 			System.out.print("AllIn(3)-");
-		if (avaliableOptions[4] == true)
+		if (this.avaliableOptions[4] == true)
 			System.out.println("Fold(4)");
 
 		while (true) {
 			while (true) {
-				this.input = reader.next();
-				if (Poker.isNumeric(input) == true)
+				this.input = this.reader.next();
+				if (Poker.isNumeric(this.input) == true)
 					break;
 				else {
 					System.out.println("Nao e um numero, escolha outro valor");
 				}
 			}
 
-			this.option = Integer.parseInt(input);
+			this.option = Integer.parseInt(this.input);
 
 			if (this.option > 4 || this.option < 0)
 				System.out.println("Opcao fora do escopo aceitavel");
