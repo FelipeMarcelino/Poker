@@ -7,7 +7,6 @@ import player.Player;
 
 public interface GetPokerHand {
 
-		
-	boolean testHand(ArrayList<Card> hand,Player player);
-	
+	boolean testHand(ArrayList<Card> hand, Player player);
+
 }

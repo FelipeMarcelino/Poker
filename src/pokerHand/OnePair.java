@@ -11,12 +11,12 @@ public class OnePair implements GetPokerHand {
 	private static OnePair onePair = new OnePair();
 	private int totalSameRank;
 	private boolean[] cardSameRank = new boolean[7];
-	
-	private  OnePair(){
+
+	private OnePair() {
 	}
-	
-	public static  OnePair getInstance(){
-	      return  onePair;
+
+	public static OnePair getInstance() {
+		return onePair;
 	}
 
 	private void getBestFivePair(ArrayList<Card> bestFive, ArrayList<Card> hand) {

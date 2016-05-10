@@ -3,9 +3,9 @@ package auxCommand;
 import deck.Deck;
 
 public class ShuffleDeck implements AuxCommand {
-private Deck deck;
-	
-	public ShuffleDeck(Deck deck){
+	private Deck deck;
+
+	public ShuffleDeck(Deck deck) {
 		this.deck = deck;
 	}
 
@@ -14,7 +14,4 @@ private Deck deck;
 		this.deck.shuffleDeck();
 	}
 
-	
-
-	
 }

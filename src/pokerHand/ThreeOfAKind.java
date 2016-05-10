@@ -7,20 +7,17 @@ import deck.Card;
 import player.Player;
 
 public class ThreeOfAKind implements GetPokerHand {
-	
-	
+
 	private static ThreeOfAKind threeOfAKind = new ThreeOfAKind();
 	private int totalSameRank;
 	private boolean[] cardSameRank = new boolean[7];
-	
-	
-	private ThreeOfAKind(){
-	}
-	
-	public static ThreeOfAKind getInstance(){
-	      return threeOfAKind;
+
+	private ThreeOfAKind() {
 	}
 
+	public static ThreeOfAKind getInstance() {
+		return threeOfAKind;
+	}
 
 	private void getBestFiveThreeOfAKind(ArrayList<Card> bestFive, ArrayList<Card> hand) {
 		for (int i = 0; i < hand.size(); i++) {

@@ -9,7 +9,7 @@ import gameCommand.Fold;
 import player.PlayersList;
 
 public class ShowAvaliableCommands implements AuxCommand {
-	
+
 	private InfoRound infoRound;
 	private PlayersList playersList;
 	private ShowHandPlayer showHandPlayer;
@@ -18,11 +18,9 @@ public class ShowAvaliableCommands implements AuxCommand {
 	private Fold fold;
 	private AllIn allIn;
 	private Call call;
-	
-	
-	
-	public ShowAvaliableCommands(PlayersList playersList, InfoRound infoRound, ShowHandPlayer showHandPlayer,Bet bet,Call call,
-			Fold fold,Check check, AllIn allIn) {
+
+	public ShowAvaliableCommands(PlayersList playersList, InfoRound infoRound, ShowHandPlayer showHandPlayer, Bet bet,
+			Call call, Fold fold, Check check, AllIn allIn) {
 		this.infoRound = infoRound;
 		this.playersList = playersList;
 		this.showHandPlayer = showHandPlayer;
@@ -33,12 +31,11 @@ public class ShowAvaliableCommands implements AuxCommand {
 		this.allIn = allIn;
 	}
 
-
 	@Override
 	public void execute() {
-		this.infoRound.showAvaliableCommands(this.playersList,this.showHandPlayer, this.check, this.bet, 
-				this.allIn, this.call, this.fold);
-		
+		this.infoRound.showAvaliableCommands(this.playersList, this.showHandPlayer, this.check, this.bet, this.allIn,
+				this.call, this.fold);
+
 	}
 
 }

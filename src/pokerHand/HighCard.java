@@ -9,13 +9,13 @@ public class HighCard implements GetPokerHand {
 
 	private static HighCard highCard = new HighCard();
 
-	private  HighCard(){
+	private HighCard() {
 	}
-	
-	public static  HighCard getInstance(){
-	      return  highCard;
+
+	public static HighCard getInstance() {
+		return highCard;
 	}
-	
+
 	private void getBestFiveHighCard(ArrayList<Card> bestFive, ArrayList<Card> hand) {
 		for (int i = 0; i < 5; i++) {
 			bestFive.add(hand.get(i));

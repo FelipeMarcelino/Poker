@@ -20,12 +20,12 @@ public class StraightFlush implements GetPokerHand {
 	private boolean thereIsAce;
 	private int indexBegin;
 	private int indexEnd;
-	
-	private  StraightFlush(){
+
+	private StraightFlush() {
 	}
-	
-	public static  StraightFlush getInstance(){
-	      return  straightFlush;
+
+	public static StraightFlush getInstance() {
+		return straightFlush;
 	}
 
 	private void getBestFiveStraightFlush(ArrayList<Card> bestFive, ArrayList<Card> hand) {
@@ -82,6 +82,7 @@ public class StraightFlush implements GetPokerHand {
 			this.removeDuplicate.clear();
 			this.indexBegin = 0;
 			this.indexEnd = 0;
+			this.thereIsAce = false;
 
 			for (int i = 0; i < tempHand.size(); i++) {
 				if (tempHand.get(i).getRank() == 0)

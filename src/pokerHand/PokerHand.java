@@ -10,7 +10,7 @@ import player.PlayersList;;
 
 public class PokerHand {
 
-	private HighCard highCard = HighCard.getInstance(); 
+	private HighCard highCard = HighCard.getInstance();
 	private OnePair onePair = OnePair.getInstance();
 	private TwoPair twoPair = TwoPair.getInstance();
 	private ThreeOfAKind threeOfAKind = ThreeOfAKind.getInstance();
@@ -19,151 +19,166 @@ public class PokerHand {
 	private FullHouse fullHouse = FullHouse.getInstance();
 	private FourOfAKind fourOfAKind = FourOfAKind.getInstance();
 	private StraightFlush straightFlush = StraightFlush.getInstance();
-	
-	
+
 	private ArrayList<Card> hand = new ArrayList<Card>();
 	private boolean drawPlyers[];
 	private int totalDraws;
 	private int whoWins;
 	private int indexCompCard;
-	
-	private void ordenateHand(){
-		Collections.sort(this.hand, new Comparator<Card>(){
+
+	private void ordenateHand() {
+		Collections.sort(this.hand, new Comparator<Card>() {
 
 			@Override
 			public int compare(Card arg0, Card arg1) {
-				
+
 				return Card.values[arg0.getRank()] - Card.values[arg1.getRank()];
 			}
-			
+
 		});
-		
+
 		Collections.reverse(this.hand);
-		
+
 	}
-	
-	public void GetPokerHand(PlayersList playersList,ArrayList<Card> board){
-		for(int i = 0; i < playersList.getSizeList(); i++){
-			if(playersList.selectPlayer(i).isFold() == false){
+
+	public void GetPokerHand(PlayersList playersList, ArrayList<Card> board) {
+		for (int i = 0; i < playersList.getSizeList(); i++) {
+			if (playersList.selectPlayer(i).isFold() == false) {
 				this.hand.addAll(board);
 				this.hand.addAll(playersList.selectPlayer(i).getHand());
 
 				ordenateHand();
-				
-				
-				if(straightFlush.testHand(this.hand, playersList.selectPlayer(i)) == true){
+
+				if (straightFlush.testHand(this.hand, playersList.selectPlayer(i)) == true) {
 					playersList.selectPlayer(i).setPowerHand(8);
-					
-				}else if(fourOfAKind.testHand(this.hand, playersList.selectPlayer(i)) == true){
+
+				} else if (fourOfAKind.testHand(this.hand, playersList.selectPlayer(i)) == true) {
 					playersList.selectPlayer(i).setPowerHand(7);
-				
-				}else if(fullHouse.testHand(this.hand, playersList.selectPlayer(i)) == true){
+
+				} else if (fullHouse.testHand(this.hand, playersList.selectPlayer(i)) == true) {
 					playersList.selectPlayer(i).setPowerHand(6);
-					
+
 				}
-				
-				else if(flush.testHand(this.hand, playersList.selectPlayer(i)) == true){
+
+				else if (flush.testHand(this.hand, playersList.selectPlayer(i)) == true) {
 					playersList.selectPlayer(i).setPowerHand(5);
 				}
-				
-				else if(straight.testHand(this.hand, playersList.selectPlayer(i)) == true){
+
+				else if (straight.testHand(this.hand, playersList.selectPlayer(i)) == true) {
 					playersList.selectPlayer(i).setPowerHand(4);
-					
+
 				}
-				
-				else if(threeOfAKind.testHand(this.hand, playersList.selectPlayer(i)) == true){
+
+				else if (threeOfAKind.testHand(this.hand, playersList.selectPlayer(i)) == true) {
 					playersList.selectPlayer(i).setPowerHand(3);
-					
+
 				}
-				
-				else if(twoPair.testHand(this.hand, playersList.selectPlayer(i)) == true){
+
+				else if (twoPair.testHand(this.hand, playersList.selectPlayer(i)) == true) {
 					playersList.selectPlayer(i).setPowerHand(2);
-				
+
 				}
-				
-				else if(onePair.testHand(this.hand, playersList.selectPlayer(i)) == true){
+
+				else if (onePair.testHand(this.hand, playersList.selectPlayer(i)) == true) {
 					playersList.selectPlayer(i).setPowerHand(1);
-					
+
 				}
-				
-				else if(highCard.testHand(this.hand, playersList.selectPlayer(i)) == true){
+
+				else if (highCard.testHand(this.hand, playersList.selectPlayer(i)) == true) {
 					playersList.selectPlayer(i).setPowerHand(0);
-					
+
 				}
-								
-				
+
 			}
+
 			this.hand.clear();
-			
+
 		}
+
 	}
-	
-	public void comparePokerHand(PlayersList playersList){
-		
+
+	public void comparePokerHand(PlayersList playersList, int totalRoundBet) {
+
 		this.drawPlyers = new boolean[playersList.getSizeList()];
 		Arrays.fill(this.drawPlyers, Boolean.FALSE);
 		this.totalDraws = 0;
-		this.whoWins = 0;
 		this.indexCompCard = 0;
-		
-		for(int i = 1; i < playersList.getSizeList(); i++){
-			if(playersList.selectPlayer(this.whoWins).getPowerHand() == 
-					playersList.selectPlayer(i).getPowerHand()){
-				this.drawPlyers[this.whoWins] = true;
-				this.drawPlyers[i] = true;
-				this.totalDraws += 1;
-			}else if(playersList.selectPlayer(this.whoWins).getPowerHand() < 
-					playersList.selectPlayer(i).getPowerHand()){
+		this.whoWins = -1;
+
+		for (int i = 0; i < playersList.getSizeList(); i++) {
+			if (playersList.selectPlayer(i).isFold() == false) {
 				this.whoWins = i;
-				this.totalDraws = 0;
-				Arrays.fill(this.drawPlyers, Boolean.FALSE);
+				break;
 			}
 		}
-		
-		while(this.totalDraws != 0 && this.indexCompCard < 5){
+
+		for (int i = 1; i < playersList.getSizeList(); i++) {
+			if (playersList.selectPlayer(i).isFold() == false && playersList.selectPlayer(i).inGame() == true) {
+				if (playersList.selectPlayer(this.whoWins).getPowerHand() == playersList.selectPlayer(i)
+						.getPowerHand()) {
+					this.drawPlyers[this.whoWins] = true;
+					this.drawPlyers[i] = true;
+					this.totalDraws += 1;
+				} else if (playersList.selectPlayer(this.whoWins).getPowerHand() < playersList.selectPlayer(i)
+						.getPowerHand()) {
+					this.whoWins = i;
+					this.totalDraws = 0;
+					Arrays.fill(this.drawPlyers, Boolean.FALSE);
+				}
+			}
+		}
+
+		while (this.totalDraws != 0 && this.indexCompCard < 5) {
 			this.totalDraws = 0;
-			
-			for(int i = 1; i < playersList.getSizeList(); i++){
-				if(this.drawPlyers[i] == true){
-					if(playersList.selectPlayer(this.whoWins).getBestFive().get(this.indexCompCard).getRank() ==
-							playersList.selectPlayer(i).getBestFive().get(this.indexCompCard).getRank()){
-						
+
+			for (int i = 1; i < playersList.getSizeList(); i++) {
+				if (this.drawPlyers[i] == true) {
+					if (playersList.selectPlayer(this.whoWins).getBestFive().get(this.indexCompCard)
+							.getRank() == playersList.selectPlayer(i).getBestFive().get(this.indexCompCard).getRank()) {
+
 						this.totalDraws += 1;
-		
-						
-					}else if(playersList.selectPlayer(this.whoWins).getBestFive().get(this.indexCompCard).getRank() >
-							playersList.selectPlayer(i).getBestFive().get(this.indexCompCard).getRank()){
-						
+
+					} else if (playersList.selectPlayer(this.whoWins).getBestFive().get(this.indexCompCard)
+							.getRank() > playersList.selectPlayer(i).getBestFive().get(this.indexCompCard).getRank()) {
+
 						this.drawPlyers[i] = false;
-						
-					}else if(playersList.selectPlayer(this.whoWins).getBestFive().get(this.indexCompCard).getRank() <
-					playersList.selectPlayer(i).getBestFive().get(this.indexCompCard).getRank()){
-						
+
+					} else if (playersList.selectPlayer(this.whoWins).getBestFive().get(this.indexCompCard)
+							.getRank() < playersList.selectPlayer(i).getBestFive().get(this.indexCompCard).getRank()) {
+
 						this.drawPlyers[this.whoWins] = false;
 						this.whoWins = i;
 						this.totalDraws = 0;
-						
+
 					}
 				}
 			}
-			
+
 			this.indexCompCard += 1;
-			
+
 		}
-		
-		
-		if(this.totalDraws == 0){
-			System.out.println("Winner: "  + playersList.selectPlayer(this.whoWins).getName());
-		}else{
-			System.out.println("Winners: ");
-			for(int i = 0; i < playersList.getSizeList(); i++){
-				if(this.drawPlyers[i] == true){
+
+		System.out.println("");
+
+		if (this.totalDraws > 0)
+			totalRoundBet = totalRoundBet / (this.totalDraws + 1);
+
+		if (this.totalDraws == 0 && this.whoWins != -1) {
+			System.out.println("-> Winner: " + playersList.selectPlayer(this.whoWins).getName());
+			playersList.selectPlayer(this.whoWins).winner(totalRoundBet);
+			playersList.selectPlayer(this.whoWins).showBestFive();
+		} else if (this.totalDraws > 0 && this.whoWins != -1) {
+			System.out.println("-> Winners: ");
+			for (int i = 0; i < playersList.getSizeList(); i++) {
+				if (this.drawPlyers[i] == true) {
 					System.out.println(playersList.selectPlayer(i).getName());
+					playersList.selectPlayer(i).winner(totalRoundBet);
+					playersList.selectPlayer(i).showBestFive();
 				}
 			}
-		}
-		
+		} else if (this.whoWins == -1)
+			System.out.println("***Ninguem ganhou essa rodada***\n");
+
 	}
-	
-	
+
 }

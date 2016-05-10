@@ -1,22 +1,19 @@
 package gameCommand;
 
-import game.InfoRound;
 import player.PlayersList;
 
-public class Fold implements GameCommand{
+public class Fold implements GameCommand {
 
 	private PlayersList playersList;
-	private InfoRound infoRound;
-	
-	public Fold(PlayersList playersList, InfoRound infoRound){
+
+	public Fold(PlayersList playersList) {
 		this.playersList = playersList;
-		this.infoRound = infoRound;
+
 	}
 
 	@Override
 	public void execute() {
 		this.playersList.selectPlayer(0).fold();
 	}
-	
-	
+
 }
