@@ -86,34 +86,34 @@ public class Poker {
 	}
 
 	public Poker(StopLoopGame stopLoopGame) {
-		deck = new Deck();
-		playersList = new PlayersList();
-		pokerHand = new PokerHand();
-		board = new ArrayList<Card>();
-		playersNames = new ArrayList<String>();
-		infoRound = new InfoRound();
-		reader = new Scanner(System.in);
-		generateDeck = new GenerateDeck(deck);
-		shuffleDeck = new ShuffleDeck(deck);
-		generatePlayers = new GeneratePlayers(playersList, playersNames);
-		rotatePlayersList = new RotatePlayersList(playersList);
-		drawCardFromDeck = new DrawCardFromDeck(playersList, deck, board);
-		setPokerHand = new SetPokerHand(playersList, pokerHand, board);
-		compareHands = new CompareHands(playersList, pokerHand, infoRound);
-		allIn = new AllIn(playersList, infoRound);
-		bet = new Bet(playersList, infoRound);
-		call = new Call(playersList, infoRound);
-		check = new Check(playersList);
-		fold = new Fold(playersList);
-		playersInGame = new PlayersInGame(playersList, infoRound);
-		getWhoWins = new GetWhoWins(playersList, infoRound);
-		eliminatePlayers = new EliminatePlayers(playersList);
-		isNextTurn = new IsNextTurn(playersList, infoRound);
-		readyPlayer = new ReadyPlayer(playersList, infoRound);
-		showHandPlayer = new ShowHandPlayer(playersList);
-		showBoardCards = new ShowBoardCards(board, infoRound);
-		showAvaliableCommands = new ShowAvaliableCommands(playersList, infoRound, showHandPlayer, bet, call, fold,
-				check, allIn);
+		this.deck = new Deck();
+		this.playersList = new PlayersList();
+		this.pokerHand = new PokerHand();
+		this.board = new ArrayList<Card>();
+		this.playersNames = new ArrayList<String>();
+		this.infoRound = new InfoRound();
+		this.reader = new Scanner(System.in);
+		this.generateDeck = new GenerateDeck(this.deck);
+		this.shuffleDeck = new ShuffleDeck(this.deck);
+		this.generatePlayers = new GeneratePlayers(this.playersList, this.playersNames);
+		this.rotatePlayersList = new RotatePlayersList(this.playersList);
+		this.drawCardFromDeck = new DrawCardFromDeck(this.playersList, this.deck, this.board);
+		this.setPokerHand = new SetPokerHand(this.playersList, this.pokerHand, this.board);
+		this.compareHands = new CompareHands(this.playersList, this.pokerHand, this.infoRound);
+		this.allIn = new AllIn(this.playersList, this.infoRound);
+		this.bet = new Bet(this.playersList, this.infoRound);
+		this.call = new Call(this.playersList, this.infoRound);
+		this.check = new Check(this.playersList);
+		this.fold = new Fold(this.playersList);
+		this.playersInGame = new PlayersInGame(this.playersList, this.infoRound);
+		this.getWhoWins = new GetWhoWins(this.playersList, this.infoRound);
+		this.eliminatePlayers = new EliminatePlayers(this.playersList);
+		this.isNextTurn = new IsNextTurn(this.playersList, this.infoRound);
+		this.readyPlayer = new ReadyPlayer(this.playersList, this.infoRound);
+		this.showHandPlayer = new ShowHandPlayer(this.playersList);
+		this.showBoardCards = new ShowBoardCards(this.board, this.infoRound);
+		this.showAvaliableCommands = new ShowAvaliableCommands(this.playersList, this.infoRound, this.showHandPlayer, this.bet, this.call, this.fold,
+				this.check, this.allIn);
 		this.stopLoopGame = stopLoopGame;
 
 		this.idPlayerDealer = -1;
@@ -124,9 +124,9 @@ public class Poker {
 		System.out.print("Escolha o total de jogadores(2 to 10): ");
 
 		while (true) {
-			this.input = reader.next();
-			if (isNumeric(input) == true) {
-				this.dTotalPlayers = Double.parseDouble(input);
+			this.input = this.reader.next();
+			if (isNumeric(this.input) == true) {
+				this.dTotalPlayers = Double.parseDouble(this.input);
 				this.totalPlayers = (int) Math.round(this.dTotalPlayers);
 				if (this.totalPlayers != this.dTotalPlayers)
 					System.out.println("Numero double, tente outro valor");
@@ -146,7 +146,7 @@ public class Poker {
 
 		for (int i = 0; i < this.totalPlayers; i++) {
 			while (true) {
-				this.name = reader.next();
+				this.name = this.reader.next();
 				if (this.name.length() >= 1 && this.name.length() <= 20)
 					break;
 				else
@@ -196,7 +196,7 @@ public class Poker {
 			this.idPlayerBigBlind = this.playersList.selectPlayer(currentPlayer).getId();
 			System.out.println("");
 			// Next player after Big Blind
-		} else if (this.turn == 1 && infoRound.getPlayersInTurn() > 1) {
+		} else if (this.turn == 1 && this.infoRound.getPlayersInTurn() > 1) {
 			System.out.println("------Inicio Flop------");
 			System.out.println("Cartas da mesa:\n");
 			this.showBoardCards.execute();
@@ -204,7 +204,7 @@ public class Poker {
 			this.idPlayerBigBlind = this.idPlayerDealer;
 			this.infoRound.setMinimumBet(0);
 			// Some code here//
-		} else if (this.turn == 2 && infoRound.getPlayersInTurn() > 1) {
+		} else if (this.turn == 2 && this.infoRound.getPlayersInTurn() > 1) {
 			System.out.println("------Inicio Turn------");
 			System.out.println("Cartas da mesa:\n");
 			this.showBoardCards.execute();
@@ -212,7 +212,7 @@ public class Poker {
 			this.idPlayerBigBlind = this.idPlayerDealer;
 			this.infoRound.setMinimumBet(0);
 			// some code here//
-		} else if (this.turn == 3 && infoRound.getPlayersInTurn() > 1) {
+		} else if (this.turn == 3 && this.infoRound.getPlayersInTurn() > 1) {
 			System.out.println("------Inicio River------");
 			System.out.println("Cartas da mesa:\n");
 			this.showBoardCards.execute();
@@ -253,8 +253,8 @@ public class Poker {
 			}
 
 			this.totalBetPerTurn = 0;
-			for (int i = 0; i < playersList.getSizeList(); i++) {
-				this.totalBetPerTurn += playersList.selectPlayer(i).getTotalBet();
+			for (int i = 0; i < this.playersList.getSizeList(); i++) {
+				this.totalBetPerTurn += this.playersList.selectPlayer(i).getTotalBet();
 			}
 			this.totalBetPerRound += this.totalBetPerTurn;
 			this.infoRound.setTotalBet(this.totalBetPerRound);
