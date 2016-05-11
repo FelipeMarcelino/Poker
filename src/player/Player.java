@@ -148,7 +148,7 @@ public class Player {
 		if (minimumBet - this.totalBet != 0)
 			minimumBet -= this.totalBet;
 
-		System.out.println("Aposta minima (Valores double sera arredondado) -> " + minimumBet);
+		System.out.println("Aposta minima (Valores double serao arredondados) -> " + minimumBet);
 		while (true) {
 			while (true) {
 				input = reader.next();

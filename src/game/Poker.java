@@ -150,7 +150,7 @@ public class Poker {
 				if (this.name.length() >= 1 && this.name.length() <= 20)
 					break;
 				else
-					System.out.println("Nome fora dos padr�es(Min = 1, Max = 20)");
+					System.out.println("Nome fora dos padroes(Min = 1, Max = 20)");
 			}
 
 			this.playersNames.add(this.name);
