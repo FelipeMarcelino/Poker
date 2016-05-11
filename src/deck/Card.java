@@ -1,5 +1,13 @@
 package deck;
 
+/**
+ * Classe Carta: Nesta classe cada uma das intâncias terá o seu indexSuit e indexRank
+ * que indicará qual é o seu naipe e o seu valor. A classe possui um array contendo os valores
+ * de cada carta, respectivo ao indíce do ranks.
+ * @author Felie Glicério Gomes Marcelino
+ *
+ */
+
 public class Card {
 
 	public static int[] suits = { 0, 1, 2, 3 };
@@ -8,6 +16,11 @@ public class Card {
 	private int indexSuit;
 	private int indexRank;
 
+	/**
+	 * 
+	 * @param indexSuit Indica qual é o naipe da carta.
+	 * @param indexRank Indica qual é o valor da carta.
+	 */
 	public Card(int indexSuit, int indexRank) {
 		this.indexRank = indexRank;
 		this.indexSuit = indexSuit;

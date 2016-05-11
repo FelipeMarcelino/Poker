@@ -5,16 +5,25 @@ import java.util.Scanner;
 
 import game.Poker;
 import player.PlayersList;
-
+/**
+ * The command pattern: Classe de comando responsável de gerar os jogadores{@link player.PlayersList#generatePlayers(ArrayList, int)}.
+ * @author Felie Glicério Gomes Marcelino
+ *
+ */
 public class GeneratePlayers implements GenerateCommand {
 
 	private PlayersList playerList;
 	private ArrayList<String> playersNames;
-	private int initChips;
+	private int initChips; //Valor inicial que cada jogador começará em fichas.
 	private Scanner reader = new Scanner(System.in);
 	private String input;
 	private double dInitChips;
 
+	/**
+	 * 
+	 * @param playersList Objeto da classe PlayerList contendo lista de jogadares {@link player.PlayersList}
+	 * @param playersNames Nome dos jogadores
+	 */
 	public GeneratePlayers(PlayersList playerList, ArrayList<String> playersNames) {
 		this.playerList = playerList;
 		this.playersNames = playersNames;
@@ -34,6 +43,7 @@ public class GeneratePlayers implements GenerateCommand {
 				System.out.println("Nao e um numero, coloque outro valor");
 			}
 		}
+		
 
 	}
 

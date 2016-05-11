@@ -8,6 +8,12 @@ import java.util.Comparator;
 import deck.Card;
 import player.PlayersList;;
 
+/**
+ * Classe PokerHand: Classe responsável por reconhecer a mão do jogador na rodada.
+ * @author Felie Glicério Gomes Marcelino
+ *
+ */
+
 public class PokerHand {
 
 	private HighCard highCard = HighCard.getInstance();
@@ -26,6 +32,9 @@ public class PokerHand {
 	private int whoWins;
 	private int indexCompCard;
 
+	/**
+	 * Ordena em ordem descrescente a mão do jogador.
+	 */
 	private void ordenateHand() {
 		Collections.sort(this.hand, new Comparator<Card>() {
 
@@ -41,6 +50,11 @@ public class PokerHand {
 
 	}
 
+	/**
+	 * Reconhece a mão do jogador.
+	 * @param playersList Lista de jogadores
+	 * @param board Carta da mesa.
+	 */
 	public void GetPokerHand(PlayersList playersList, ArrayList<Card> board) {
 		for (int i = 0; i < playersList.getSizeList(); i++) {
 			if (playersList.selectPlayer(i).isFold() == false) {
@@ -97,6 +111,11 @@ public class PokerHand {
 
 	}
 
+	/**
+	 * Compara a mão dos jogadores.
+	 * @param playersList Lista de jogadores.
+	 * @param totalRoundBet Total de apostas no round.
+	 */
 	public void comparePokerHand(PlayersList playersList, int totalRoundBet) {
 
 		this.drawPlyers = new boolean[playersList.getSizeList()];
@@ -160,6 +179,9 @@ public class PokerHand {
 
 		System.out.println("");
 
+		/**
+		 * Vẽ se houve empate ou não, se sim o prémio é dívido para todos os jogadores.
+		 */
 		if (this.totalDraws > 0)
 			totalRoundBet = totalRoundBet / (this.totalDraws + 1);
 

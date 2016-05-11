@@ -28,21 +28,36 @@ import generateCommand.GeneratePlayers;
 import player.PlayersList;
 import pokerHand.PokerHand;
 
+/**
+ * Classe Poker: Responsável por administrar o jogo. Sendo na geração {@link #generate()}, no jogo em si
+ * {@link #Turns()} ou para buscar quem foi o ganhador do game {@link #whoWinsGame()}.
+ * @author Felie Glicério Gomes Marcelino
+ *
+ */
+
 public class Poker {
 
+	/**
+	 * Transforma os valores números de naipes {@link deck.Card#suits} e valores {@link deck.Card#ranks}
+	 * em strings.
+	 */
 	public static String[] suits = { "Hearts", "Diamonds", "Spade", "Clubs" };
 	public static String[] ranks = { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queens", "King" };
 
-	private Deck deck;
-	private PlayersList playersList;
+	/**
+	 * Variáveis e instâncias responsável para a estrutura do jogo.
+	 */
+	
+	private Deck deck; //Cartas
+	private PlayersList playersList; //Lista de jogadores
 	private PokerHand pokerHand;
-	private ArrayList<Card> board;
-	private ArrayList<String> playersNames;
+	private ArrayList<Card> board; //Cartas da mesa
+	private ArrayList<String> playersNames; //Nome dos jogadores
 	private InfoRound infoRound;
 	private Scanner reader;
-	private int totalPlayers;
-	private int idPlayerBigBlind;
-	private int idPlayerDealer;
+	private int totalPlayers; //Total de jogadores
+	private int idPlayerBigBlind; //Jogador big blind.
+	private int idPlayerDealer; //Jogador dealer.
 	private int idCurrentPlayer;
 	private static int currentPlayer = 0;
 	private int totalBetPerRound;
@@ -76,6 +91,11 @@ public class Poker {
 	private ShowAvaliableCommands showAvaliableCommands;
 	private StopLoopGame stopLoopGame;
 
+	/**
+	 * Verifica se uma string é númerica.
+	 * @param str Recebe uma string input do jogador
+	 * @return <code> true </code> se a string for número, <code> false<code> caso contrário.
+	 */
 	public static boolean isNumeric(String str) {
 		try {
 			double d = Double.parseDouble(str);
@@ -85,6 +105,11 @@ public class Poker {
 		return true;
 	}
 
+	/**
+	 * Construtor da classe Poker.
+	 * @param stopLoopGame Objeto responsável por parar o jogo quando restou 
+	 * apenas um jogador na mesa.
+	 */
 	public Poker(StopLoopGame stopLoopGame) {
 		this.deck = new Deck();
 		this.playersList = new PlayersList();
@@ -119,6 +144,9 @@ public class Poker {
 		this.idPlayerDealer = -1;
 	}
 
+	/**
+	 * Responsável por gerar os jogadores e o baralho do jogo.
+	 */
 	public void generate() {
 
 		System.out.print("Escolha o total de jogadores(2 to 10): ");
@@ -160,7 +188,10 @@ public class Poker {
 		this.generateDeck.execute();
 
 	}
-
+	
+	/**
+	 * Responsável por administrar os turnos do jogo: Pre-Flop,Flop,Turn,River.
+	 */
 	public void Turns() {
 
 		this.readyPlayer.execute();
@@ -196,6 +227,7 @@ public class Poker {
 			this.idPlayerBigBlind = this.playersList.selectPlayer(currentPlayer).getId();
 			System.out.println("");
 			// Next player after Big Blind
+			System.out.println("---------------------------\n");
 		} else if (this.turn == 1 && this.infoRound.getPlayersInTurn() > 1) {
 			System.out.println("------Inicio Flop------");
 			System.out.println("Cartas da mesa:\n");
@@ -233,8 +265,9 @@ public class Poker {
 					this.showAvaliableCommands.execute();
 
 				} else {
-					System.out.println(
+					System.out.println("Player: " +
 							this.playersList.selectPlayer(currentPlayer).getName() + " -> Fold ou fora do game");
+					System.out.println("---------------------------\n");
 				}
 				System.out.println("");
 				if (this.playersList.selectPlayer(currentPlayer).getId() == this.idPlayerBigBlind) {
@@ -301,12 +334,20 @@ public class Poker {
 
 	}
 
+	/**
+	 * Responsável por buscar quem foi o ganhador do jogo.
+	 */
 	public void whoWinsGame() {
 
 		this.getWhoWins.execute();
 		System.out.println("\n\n --->Ganhador do jogo: "
 				+ this.playersList.selectPlayer(this.infoRound.getWhoWins()).getName() + "<---");
 		System.out.println("****Fim do jogo****\n");
+		this.playersList = null;
+		this.deck = null;
+		this.playersNames.clear();
+		this.playersList = new PlayersList();
+		this.deck = new Deck();
 
 	}
 

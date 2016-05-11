@@ -6,6 +6,12 @@ import java.util.Arrays;
 import deck.Card;
 import player.Player;
 
+/**
+ * Classe Flush: Responsável de retornar ao jogador caso sua combinação de cartas
+ * entre na regra do TwoPair.
+ * @author Felie Glicério Gomes Marcelino
+ *
+ */
 public class TwoPair implements GetPokerHand {
 
 	private static TwoPair twoPair = new TwoPair();
@@ -17,14 +23,26 @@ public class TwoPair implements GetPokerHand {
 	private boolean isPairA;
 	private boolean isPairB;
 	private Card auxCard;
-
+	
+	/**
+	 * Private construtor
+	 */
 	private TwoPair() {
 	}
 
+	/**
+	 * Retorna {@link #TwoPair()}
+	 * @return Retorna instância da classe.
+	 */
 	public static TwoPair getInstance() {
 		return twoPair;
 	}
 
+	/**
+	 * 
+	 * @param bestFive 5 melhores cartas
+	 * @param hand Mao do jogador combinado com as cartas da mesa.
+	 */
 	private void getBestFiveTwoPairs(ArrayList<Card> bestFive, ArrayList<Card> hand) {
 
 		for (int i = 0; i < this.indexPairB.length; i++) {

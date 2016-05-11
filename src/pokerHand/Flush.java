@@ -5,20 +5,37 @@ import java.util.Arrays;
 
 import deck.Card;
 import player.Player;
-
+/**
+ * Classe Flush: Responsável de retornar ao jogador caso sua combinação de cartas
+ * entre na regra do Flush.
+ * @author Felie Glicério Gomes Marcelino
+ *
+ */
 public class Flush implements GetPokerHand {
 
 	private static Flush flush = new Flush();
 	private int totalSameSuit;
 	private boolean[] cardSameSuit = new boolean[7];
 
+	/**
+	 * Private construtor.
+	 */
 	private Flush() {
 	}
 
+	/**
+	 * Retorna {@link #flush}
+	 * @return Retorna a instância da classe.
+	 */
 	public static Flush getInstance() {
 		return flush;
 	}
 
+	/**
+	 * 
+	 * @param bestFive 5 melhores cartas
+	 * @param hand Mao do jogador combinado com as cartas da mesa.
+	 */
 	private void getBestFiveFlush(ArrayList<Card> bestFive, ArrayList<Card> hand) {
 		for (int i = 0; i < hand.size(); i++) {
 			if (this.cardSameSuit[i] == true) {
@@ -29,6 +46,7 @@ public class Flush implements GetPokerHand {
 		}
 	}
 
+	
 	@Override
 	public boolean testHand(ArrayList<Card> hand, Player player) {
 

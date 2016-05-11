@@ -8,6 +8,12 @@ import java.util.Set;
 import deck.Card;
 import player.Player;
 
+/**
+ * Classe Flush: Responsável de retornar ao jogador caso sua combinação de cartas
+ * entre na regra do Straight.
+ * @author Felie Glicério Gomes Marcelino
+ *
+ */
 public class Straight implements GetPokerHand {
 
 	private static Straight straight = new Straight();
@@ -17,13 +23,25 @@ public class Straight implements GetPokerHand {
 	private int indexBegin;
 	private int indexEnd;
 
+	/**
+	 * Private construtor
+	 */
 	private Straight() {
 	}
 
+	/**
+	 * Retorna {@link #straight}
+	 * @return Retorna instância da classe
+	 */
 	public static Straight getInstance() {
 		return straight;
 	}
 
+	/**
+	 * 
+	 * @param bestFive 5 melhores cartas
+	 * @param hand Mao do jogador combinado com as cartas da mesa.
+	 */
 	private void getBestFiveStraight(ArrayList<Card> bestFive, ArrayList<Card> hand) {
 
 		for (int i = this.indexEnd; i > this.indexBegin - 1; i--) {

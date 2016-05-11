@@ -13,6 +13,15 @@ import gameCommand.Check;
 import gameCommand.Fold;
 import player.PlayersList;
 
+/**
+ * Classe InfoRound: Responsável por guardar todas informações 
+ * de cada rodada do Jogo. Como por exemplo, valor mínimo {@link #minimumBet},
+ * qual é o turno{@link #turn} atual da rodada e o total de apostas na rodada {@link #totalRoundBet}.
+ * 
+ * @author Felie Glicério Gomes Marcelino
+ *
+ */
+
 public class InfoRound {
 
 	private int minimumBet;
@@ -29,64 +38,118 @@ public class InfoRound {
 	private String input;
 	private Scanner reader = new Scanner(System.in);
 
+	/**
+	 * Retorna a menor aposta possível.
+	 * @return
+	 */
 	public int getMinimumBet() {
 		return this.minimumBet;
 	}
 
+	/**
+	 * Seta a menor aposta possíveçl
+	 * @param minimumBet
+	 */
 	public void setMinimumBet(int minimumBet) {
 		this.minimumBet = minimumBet;
 	}
 
+	/**
+	 * @return Se <code> true </code> está pronto para o próximo turno
+	 * caso contrário , permanece no turno.
+	 */
 	public boolean isNextTurn() {
 		return this.nextTurn;
 	}
 
+	/**
+	 * Seta {@link #nextTurn}
+	 * @param nextTurn <code> True </code> ou <code> False</code>
+	 */
 	public void setNextTurn(boolean nextTurn) {
 		this.nextTurn = nextTurn;
 	}
 
+	/**
+	 * Seta {@link #totalRoundBet}
+	 * @param totalRoundBet Total de apostas no round.
+	 */
 	public void setTotalBet(int totalRoundBet) {
 		this.totalRoundBet = totalRoundBet;
 	}
 
+	/**
+	 * Retorna {@link #totalRoundBet}
+	 * @return Total de apostas feita no round.
+	 */
 	public int getTotalBet() {
 		return this.totalRoundBet;
 	}
 
+	/**
+	 * Retorna {@link #playersInTurn}
+	 * @return Retorna o total de jogadores no turno.
+	 */
 	public int getPlayersInTurn() {
 		return this.playersInTurn;
 	}
 
+	
 	public void setPlayersInTurn() {
 		this.playersInTurn = 0;
 	}
 
+	/**
+	 * Seta {@link #playersInGame}
+	 * @param playersInGame Seta o total de jogadores no game
+	 */
 	public void setPlayersInGame(int playersInGame) {
 		this.playersInGame = playersInGame;
 
 	}
 
+	/**
+	 * Retorna {@link #playersInGame}
+	 * @return O total de jogadores no turno.
+	 */
 	public int getPlayersInGame() {
 		return this.playersInGame;
 	}
 
-	public void sumPlayersInTurn(int playersInTurn) {
-		this.playersInTurn += playersInTurn;
+	
+	public void sumPlayersInTurn() {
+		this.playersInTurn += 1;
 	}
 
+	/**
+	 * Seta {@link #whoWinsGame}
+	 * @param whoWins Recebe quem foi o vencedor do game.
+	 */
 	public void setWhoWins(int whoWins) {
 		this.whoWinsGame = whoWins;
 
 	}
 
+	/**
+	 * Retorna {@link #whoWinsGame}
+	 * @return Retorna quem ganhou o game.
+	 */
 	public int getWhoWins() {
 		return this.whoWinsGame;
 	}
 
+	/**
+	 * Seta {@link #turn}
+	 * @param turn Estabelece em qual turno a rodada está.
+	 */
 	public void setTurn(int turn) {
 		this.turn = turn;
 	}
 
+	/**
+	 * Imprime na tela quais são as cartas da mesa.
+	 * @param board Recebe as cartas da mesa.
+	 */
 	public void showBoardCard(ArrayList<Card> board) {
 		if (this.turn == 1)
 			this.indexShowBoardCard = 3;
@@ -101,6 +164,16 @@ public class InfoRound {
 
 	}
 
+	/**
+	 * Mostra para o jogador quais são as opções que ele tem disponível naquela jogada.
+	 * @param playersList Lista de jogadores
+	 * @param showHandPlayer Comando para exibir a mão do jogador.
+	 * @param check Comando check.
+	 * @param bet Comando bet.
+	 * @param allIn Comandl allIn.
+	 * @param call Comando Call.
+	 * @param fold Comando fold.
+	 */
 	public void showAvaliableCommands(PlayersList playersList, ShowHandPlayer showHandPlayer, Check check, Bet bet,
 			AllIn allIn, Call call, Fold fold) {
 		System.out.print("Player: " + playersList.selectPlayer(currentPlayer).getName());
@@ -147,7 +220,7 @@ public class InfoRound {
 		// Fold avaliable
 		this.avaliableOptions[4] = true;
 
-		System.out.println("Opcoes que podem ser escolhidas");
+		System.out.println("\nOpcoes que podem ser escolhidas:");
 		if (this.avaliableOptions[0] == true)
 			System.out.print("Check(0)-");
 		if (this.avaliableOptions[1] == true)
@@ -192,6 +265,8 @@ public class InfoRound {
 			allIn.execute();
 		else if (this.option == 4)
 			fold.execute();
+		
+		System.out.println("---------------------------\n");
 
 	}
 

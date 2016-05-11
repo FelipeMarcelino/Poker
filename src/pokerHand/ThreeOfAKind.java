@@ -6,19 +6,37 @@ import java.util.Arrays;
 import deck.Card;
 import player.Player;
 
+/**
+ * Classe Flush: Responsável de retornar ao jogador caso sua combinação de cartas
+ * entre na regra do ThreeOfAkind.
+ * @author Felie Glicério Gomes Marcelino
+ *
+ */
 public class ThreeOfAKind implements GetPokerHand {
 
 	private static ThreeOfAKind threeOfAKind = new ThreeOfAKind();
 	private int totalSameRank;
 	private boolean[] cardSameRank = new boolean[7];
 
+	/**
+	 * Private construtor
+	 */
 	private ThreeOfAKind() {
 	}
 
+	/**
+	 * Retorna {@link #threeOfAKind}
+	 * @return Retorna instância da classe.
+	 */
 	public static ThreeOfAKind getInstance() {
 		return threeOfAKind;
 	}
 
+	/**
+	 * 
+	 * @param bestFive 5 melhores cartas
+	 * @param hand Mao do jogador combinado com as cartas da mesa.
+	 */
 	private void getBestFiveThreeOfAKind(ArrayList<Card> bestFive, ArrayList<Card> hand) {
 		for (int i = 0; i < hand.size(); i++) {
 			if (this.cardSameRank[i] == true) {

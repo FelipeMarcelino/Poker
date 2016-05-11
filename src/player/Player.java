@@ -6,6 +6,12 @@ import java.util.Scanner;
 import deck.Card;
 import game.Poker;
 
+/**
+ * Classe Player: Classe responsável por guardar todas as informações do jogadores.
+ * @author Felie Glicério Gomes Marcelino
+ *
+ */
+
 public class Player {
 
 	private String name;
@@ -25,6 +31,12 @@ public class Player {
 	private double dBet;
 	private String input;
 
+	/**
+	 * Construtor player
+	 * @param name Nome do jogador
+	 * @param id Identificação do jogador
+	 * @param chips Fichas do jogador
+	 */
 	public Player(String name, int id, int chips) {
 		this.name = name;
 		this.id = id;
@@ -35,7 +47,10 @@ public class Player {
 		this.inGame = true;
 		this.resetFold = 0;
 	}
-
+	/**
+	 * 
+	 * @return <code> true </code> se o jogador está pronto, <code> false </false> caso contrário.
+	 */
 	public boolean readyPlayer() {
 		if (this.resetFold == 0 && this.inGame == true) {
 			this.isFold = false;
@@ -55,85 +70,160 @@ public class Player {
 			return false;
 	}
 
+	/**
+	 * Retorna {@link #name}
+	 * @return Retorna o nome do jogador
+	 */
 	public String getName() {
 		return this.name;
 	}
-
+	/**
+	 * Retorna {@link #id}
+	 * @return Retorna o id do jogador
+	 */
 	public int getId() {
 		return this.id;
 	}
 
+	/**
+	 * Retorna {@link #inGame}
+	 * @return Retorna  <code> true </code>  se o jgador está no jogo, <code> false</code> caso contrário.
+	 */
 	public boolean inGame() {
 		return this.inGame;
 	}
 
+	/**
+	 * Retira o jogador do game.
+	 */
 	public void outGame() {
 		this.inGame = false;
 		this.isFold = true;
 	}
 
+	/**
+	 * Retorna {@link #chips}
+	 * @return Retorna o total de fichas do jogador.
+	 */
 	public int getChips() {
 		return this.chips;
 	}
 
+	/**
+	 * Retorna {@link #powerHand}
+	 * @return Retorna qual a força da mão do jogador. 8 - StraightFlush...1- one pair.
+	 */
 	public int getPowerHand() {
 		return powerHand;
 	}
 
+	/**
+	 * Seta {@link #powerHand}
+	 * @param powerHand Atribui a força da mão do jogador.
+	 */
 	public void setPowerHand(int powerHand) {
 		this.powerHand = powerHand;
 	}
 
+	/**
+	 * Seta {@link #hand}
+	 * @param card Recebe carta do Croupier.
+	 */
 	public void receiveCard(Card card) {
 		this.hand.add(card);
 	}
 
+	/**
+	 * Return {@link #hand}
+	 * @return Retorna mão do jogador
+	 */
 	public ArrayList<Card> getHand() {
 		return this.hand;
 	}
 
+	/**
+	 * Seta {@link #bestFive}
+	 * @return Atribui as 5 melhores cartas do jogador.
+	 */
 	public ArrayList<Card> setBestFive() {
 		return this.bestFive;
 	}
 
+	/**
+	 * Retorna {@link #bestFive}
+	 * @return Retorna as 5 melhores cartas do jogador.
+	 */
 	public ArrayList<Card> getBestFive() {
 		return this.bestFive;
 	}
 
+	/**
+	 * Retorna {@link #totalBet}
+	 * @return Retorna o total que o jogador apostou em um turno.
+	 */
 	public int getTotalBet() {
 		return this.totalBet;
 	}
 
+	/**
+	 * Coloca o jogador em estado Fold.
+	 */
 	public void fold() {
 
 		this.isFold = true;
 	}
 
+	/**
+	 * Retorna {@link #isFold}
+	 * @return Retorna <code> true</code> se o jogador está em fold.
+	 */
 	public boolean isFold() {
 		return this.isFold;
 	}
 
+	/**
+	 * Coloca o jogador em estado Check.
+	 */
 	public void check() {
 		this.isCheck = true;
 	}
 
+	/**
+	 * retorna {@link #isCheck}
+	 * @return Retorna <code> true </code> se o jogador já utilizou check.
+	 */
 	public boolean isCheck() {
 		return this.isCheck;
 	}
 
+	/**
+	 * Retorna {@link #allIn}
+	 * @return Retorna <code> true</true> se o jogador está em All In.
+	 */
 	public boolean isAllIn() {
 		return allIn;
 	}
 
+	/**
+	 * Mostra a mão do jogador.
+	 */
 	public void showHand() {
+		System.out.println("");
 		System.out.println(Poker.ranks[this.hand.get(0).getRank()] + " Of " + Poker.suits[this.hand.get(0).getSuit()]);
 		System.out.println(Poker.ranks[this.hand.get(1).getRank()] + " Of " + Poker.suits[this.hand.get(1).getSuit()]);
 	}
 
+	/**
+	 * Sum {@link #chips}
+	 * @param totalRoundBet Valor que será somado a ficha do jogador.
+	 */
 	public void winner(int totalRoundBet) {
 		this.chips += totalRoundBet;
 	}
 
+	/**
+	 * Mostra as melhores 5 cartas do jogador.
+	 */
 	public void showBestFive() {
 		if (this.bestFive.size() > 0) {
 			System.out.println("Melhores 5 cartas");
@@ -144,6 +234,11 @@ public class Player {
 		}
 	}
 
+	/**
+	 * Retorna {@link #bet}
+	 * @param minimumBet Valor mínimo que o jogador tem que aposta.
+	 * @return Retorna qual foi a aposta do jogador.
+	 */
 	public int bet(int minimumBet) {
 		if (minimumBet - this.totalBet != 0)
 			minimumBet -= this.totalBet;
@@ -173,6 +268,10 @@ public class Player {
 
 	}
 
+	/**
+	 * Seta {@link #allIn}
+	 * @return Retorna todas as fichas do jogador como aposta.
+	 */
 	public int allIn() {
 		System.out.print("Todas as fichas apostadas!(");
 		this.bet = this.chips;
@@ -183,6 +282,11 @@ public class Player {
 		return this.totalBet;
 	}
 
+	/**
+	 * 
+	 * @param minimumBet Iguala a aposta do jogador à aposta mínima
+	 * @return Retorna á aposta do jogador
+	 */
 	public int call(int minimumBet) {
 
 		this.bet = minimumBet - this.totalBet;
